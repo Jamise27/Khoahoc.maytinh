@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khoa học máy tính — Phần 1: Tổng quan máy tính &amp; Phần 2: Mạng máy tính</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --c1:#f6c445; /* yellow  */
+    --c2:#e45f2b; /* orange  */
+    --c3:#a0e548; /* lime    */
+    --c4:#72fa93; /* green   */
+    --c5:#9ac1f0; /* blue    */
+    --ink:#22241d;
+    --ink-soft:#5c5c53;
+    --paper:#fbf9f4;
+    --card:#ffffff;
+    --line:#e9e6d9;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.display{font-family:'Baloo 2',sans-serif;}
+  code,.mono,pre{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;}
+
+  .bg-blob{position:fixed;inset:0;z-index:-1;overflow:hidden;}
+  .bg-blob span{position:absolute;border-radius:50%;filter:blur(60px);opacity:.3;}
+  .bg-blob .b1{width:380px;height:380px;background:var(--c5);top:-120px;left:-100px;}
+  .bg-blob .b2{width:340px;height:340px;background:var(--c4);top:20%;right:-140px;}
+  .bg-blob .b3{width:300px;height:300px;background:var(--c1);bottom:0;left:10%;}
+  .bg-blob .b4{width:280px;height:280px;background:var(--c2);bottom:-100px;right:15%;opacity:.18;}
+
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:rgba(251,249,244,.88);border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:1140px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:18px;overflow-x:auto;}
+  .nav-logo{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.1rem;white-space:nowrap;display:flex;align-items:center;gap:8px;}
+  .nav-logo .dot{width:12px;height:12px;border-radius:50%;background:var(--c1);box-shadow:6px 0 0 var(--c5),12px 0 0 var(--c2);}
+  .nav-links{display:flex;gap:6px;flex-wrap:nowrap;align-items:center;}
+  .nav-links a{white-space:nowrap;font-size:.8rem;font-weight:600;text-decoration:none;padding:7px 13px;border-radius:100px;color:var(--ink-soft);border:1.5px solid transparent;transition:.2s;}
+  .nav-links a:hover{border-color:var(--line);color:var(--ink);background:#fff;}
+  .nav-sep{white-space:nowrap;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:var(--c2);padding:6px 12px;border-radius:100px;margin-left:4px;}
+
+  .hero{max-width:1140px;margin:0 auto;padding:60px 24px 36px;display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5c7a17;background:#f1fbdd;padding:6px 14px;border-radius:100px;margin-bottom:16px;}
+  .eyebrow.blue{color:#1c4e80;background:#e7f1fc;}
+  .hero h1{font-size:clamp(2rem,4.6vw,3rem);line-height:1.12;margin:0 0 16px;font-weight:800;}
+  .hero h1 .accent{color:var(--c2);}
+  .hero p{font-size:1rem;color:var(--ink-soft);line-height:1.7;max-width:48ch;margin:0 0 22px;}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{font-size:.76rem;font-weight:600;padding:6px 12px;border-radius:100px;color:var(--ink);}
+  .tag.t1{background:var(--c1);}.tag.t2{background:var(--c2);color:#fff;}.tag.t3{background:var(--c3);}.tag.t4{background:var(--c4);}.tag.t5{background:var(--c5);}
+
+  .hero-code{background:#22241d;border-radius:18px;padding:20px 20px 16px;color:#f4f1ea;box-shadow:0 20px 50px -18px rgba(34,36,29,.5);font-size:.82rem;line-height:1.7;}
+  .hero-code .dots{display:flex;gap:6px;margin-bottom:12px;}
+  .hero-code .dots span{width:10px;height:10px;border-radius:50%;}
+  .hero-code .dots span:nth-child(1){background:var(--c2);}.hero-code .dots span:nth-child(2){background:var(--c1);}.hero-code .dots span:nth-child(3){background:var(--c4);}
+
+  section{max-width:1140px;margin:0 auto;padding:60px 24px;}
+  .section-head{max-width:640px;margin:0 auto 36px;text-align:center;}
+  .section-head .kicker{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+  .section-head h2{font-size:clamp(1.5rem,3.2vw,2.1rem);margin:8px 0 10px;}
+  .section-head p{color:var(--ink-soft);line-height:1.6;margin:0;}
+
+  .mindmap-wrap{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:38px 18px;overflow:hidden;}
+  .mindmap{position:relative;max-width:940px;margin:0 auto;min-height:760px;}
+  .mm-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:150px;height:150px;border-radius:50%;background:linear-gradient(145deg,var(--c2),var(--c5));display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:1rem;box-shadow:0 18px 40px -14px rgba(228,95,43,.5);z-index:3;padding:8px;}
+  .mm-node{position:absolute;width:195px;padding:13px 15px;border-radius:16px;background:var(--card);border:2px solid var(--line);z-index:2;box-shadow:0 10px 24px -14px rgba(34,36,29,.18);text-decoration:none;color:var(--ink);display:block;transition:.25s;}
+  .mm-node:hover{transform:translateY(-4px);box-shadow:0 16px 28px -14px rgba(34,36,29,.28);}
+  .mm-node .num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;font-size:.72rem;font-weight:800;margin-bottom:8px;}
+  .mm-node .title{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:.94rem;margin-bottom:4px;}
+  .mm-node .desc{font-size:.73rem;color:var(--ink-soft);line-height:1.4;}
+
+  .mm-node.n1{top:0%;left:0%;} .mm-node.n1 .num{background:var(--c1);color:var(--ink);}
+  .mm-node.n2{top:0%;right:0%;} .mm-node.n2 .num{background:var(--c2);color:#fff;}
+  .mm-node.n3{top:30%;left:-3%;} .mm-node.n3 .num{background:var(--c3);color:var(--ink);}
+  .mm-node.n4{top:30%;right:-3%;} .mm-node.n4 .num{background:var(--c4);color:var(--ink);}
+  .mm-node.n5{top:60%;left:-1%;} .mm-node.n5 .num{background:var(--c5);color:var(--ink);}
+  .mm-node.n6{top:60%;right:-1%;} .mm-node.n6 .num{background:var(--c2);color:#fff;}
+  .mm-node.n7{bottom:0%;left:22%;} .mm-node.n7 .num{background:var(--c3);color:var(--ink);}
+  .mm-node.n8{bottom:0%;right:22%;} .mm-node.n8 .num{background:var(--c1);color:var(--ink);}
+
+  .mindmap svg{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
+
+  @media(max-width:820px){
+    .mindmap{min-height:auto;}
+    .mindmap svg{display:none;}
+    .mm-center{position:static;transform:none;margin:0 auto 20px;}
+    .mm-node{position:static;width:auto;margin-bottom:12px;}
+    .hero{grid-template-columns:1fr;}
+  }
+
+  .topic{border-radius:28px;border:1px solid var(--line);background:var(--card);padding:34px clamp(18px,4vw,42px);margin-bottom:24px;scroll-margin-top:90px;}
+  .topic-head{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+  .topic-num{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.1rem;flex-shrink:0;}
+  .topic-head h3{margin:0;font-size:1.35rem;}
+  .topic-head .sub{font-size:.84rem;color:var(--ink-soft);margin-top:2px;}
+
+  .topic.k1 .topic-num{background:var(--c1);color:var(--ink);}
+  .topic.k2 .topic-num{background:var(--c2);color:#fff;}
+  .topic.k3 .topic-num{background:var(--c3);color:var(--ink);}
+  .topic.k4 .topic-num{background:var(--c4);color:var(--ink);}
+  .topic.k5 .topic-num{background:var(--c5);color:var(--ink);}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .info-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px 18px;}
+  .info-card h4{margin:0 0 8px;font-size:.94rem;font-family:'Baloo 2',sans-serif;}
+  .info-card p,.info-card li{font-size:.87rem;color:var(--ink-soft);line-height:1.6;margin:0 0 6px;}
+  .info-card ul{margin:0;padding-left:18px;}
+
+  .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;}
+  .pill{font-size:.77rem;font-weight:600;padding:5px 12px;border-radius:100px;border:1.5px solid var(--line);background:#fff;}
+
+  pre.code{background:#22241d;color:#f4f1ea;border-radius:14px;padding:15px 17px;font-size:.8rem;line-height:1.7;overflow-x:auto;margin:10px 0;}
+  pre.code .c-num{color:var(--c1);}
+
+  .example-box{border-left:4px solid var(--c2);background:#fdece4;border-radius:0 14px 14px 0;padding:12px 16px;margin-top:14px;font-size:.86rem;color:#5a2510;}
+  .example-box b{color:#3b1608;}
+  .example-box.blue{border-left-color:var(--c5);background:#eaf3fd;color:#173654;}
+  .example-box.blue b{color:#0d2338;}
+
+  table.spec{width:100%;border-collapse:collapse;font-size:.84rem;margin:14px 0;}
+  table.spec th{text-align:left;padding:9px 12px;background:var(--paper);font-family:'Baloo 2',sans-serif;font-size:.8rem;border-bottom:2px solid var(--line);}
+  table.spec td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-soft);vertical-align:top;}
+  table.spec tr:last-child td{border-bottom:none;}
+  table.spec code{background:#f1ede3;padding:1px 6px;border-radius:6px;font-size:.78rem;color:var(--ink);}
+
+  .divider{max-width:1140px;margin:0 auto;padding:0 24px;}
+  .divider hr{border:none;border-top:2px dashed var(--line);margin:8px 0 0;}
+
+  footer{max-width:1140px;margin:0 auto;padding:44px 24px 80px;text-align:center;}
+  footer .foot-card{background:linear-gradient(120deg,var(--c5),var(--c1));border-radius:24px;padding:40px 24px;color:#22241d;}
+  footer h3{margin:0 0 10px;font-size:1.4rem;}
+  footer p{margin:0;color:#3a3b30;max-width:56ch;margin:0 auto;line-height:1.65;}
+  footer .foot-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:820px;margin:18px auto 0;text-align:left;}
+  @media(max-width:700px){footer .foot-grid{grid-template-columns:1fr;}}
+  footer .foot-grid div{background:rgba(255,255,255,.5);border-radius:16px;padding:14px 18px;}
+  footer .foot-grid h4{margin:0 0 6px;font-family:'Baloo 2',sans-serif;font-size:.95rem;}
+  footer .foot-grid p{margin:0;font-size:.83rem;line-height:1.55;max-width:none;}
+
+  .back-top{position:fixed;bottom:24px;right:24px;width:46px;height:46px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.1rem;box-shadow:0 10px 24px -10px rgba(0,0,0,.4);z-index:40;opacity:0;pointer-events:none;transition:.3s;}
+  .back-top.show{opacity:1;pointer-events:auto;}
+
+  /* Part switcher (toggle giữa các Phần) */
+  .part-switch{display:flex;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:100px;padding:4px;flex-shrink:0;}
+  .part-switch button{border:none;background:transparent;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:.8rem;padding:8px 16px;border-radius:100px;cursor:pointer;color:var(--ink-soft);white-space:nowrap;transition:.2s;}
+  .part-switch button:hover{color:var(--ink);}
+  .part-switch button.active{background:var(--ink);color:#fff;}
+  .part-switch button.add-part{color:var(--ink-soft);opacity:.55;cursor:default;font-weight:600;}
+  .part-switch button.add-part:hover{color:var(--ink-soft);}
+  .nav-links[data-part]{display:none;}
+  .nav-links[data-part].active-group{display:flex;}
+  .part-page{display:none;}
+  .part-page.active-page{display:block;}
+  .foot-grid div{cursor:pointer;}
+  .foot-grid div:hover{background:rgba(255,255,255,.75);}
+</style>
+</head>
+<body>
+
+<div class="bg-blob"><span class="b1"></span><span class="b2"></span><span class="b3"></span><span class="b4"></span></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo"><span class="dot"></span> Máy tính &amp; Mạng</div>
+
+    <div class="part-switch" id="partSwitch">
+      <button type="button" data-part="1">Phần 1 · Máy tính</button>
+      <button type="button" data-part="2">Phần 2 · Mạng</button>
+      <button type="button" class="add-part" disabled>+ Phần 3 (sắp có)</button>
+    </div>
+
+    <div class="nav-links" data-part="1">
+      <a href="#mindmap">Bản đồ P1</a>
+      <a href="#lich-su">Lịch sử</a>
+      <a href="#phan-cung">Phần cứng</a>
+      <a href="#kien-truc">Kiến trúc</a>
+      <a href="#phan-mem">Phần mềm</a>
+      <a href="#he-dieu-hanh">Hệ điều hành</a>
+      <a href="#loai-may">Loại máy tính</a>
+      <a href="#mang">Mạng (tổng quan)</a>
+      <a href="#du-lieu">Dữ liệu &amp; Cloud</a>
+    </div>
+
+    <div class="nav-links" data-part="2">
+      <a href="#mindmap2">Bản đồ P2</a>
+      <a href="#mang-loai">Phân loại mạng</a>
+      <a href="#mang-tp">Thành phần mạng</a>
+      <a href="#mang-internet">Internet</a>
+      <a href="#mang-diachi">Địa chỉ &amp; DNS</a>
+      <a href="#mang-giaothuc">Giao thức</a>
+      <a href="#mang-web">World Wide Web</a>
+      <a href="#mang-anninh">An ninh mạng</a>
+      <a href="#he-dieu-hanh-chuyen-sau">Hệ điều hành chuyên sâu</a>
+      <a href="#ngon-ngu-lap-trinh">Ngôn ngữ lập trình</a>
+      <a href="#phan-loai-phan-mem">Phân loại phần mềm</a>
+    </div>
+  </div>
+</nav>
+
+<div class="part-page" data-part="1">
+
+<div class="hero">
+  <div>
+    <span class="eyebrow">🖥️ Phần 1 · Tóm tắt &amp; ghi nhớ</span>
+    <h1>Tổng quan <span class="accent">hệ thống</span> máy tính</h1>
+    <p>Tổng hợp toàn bộ kiến thức nền: lịch sử máy tính, phần cứng, kiến trúc CPU/RAM, phần mềm, hệ điều hành, các loại máy tính, mạng máy tính và dữ liệu/điện toán đám mây — kèm ví dụ dễ hiểu, có phần nhấn mạnh nội dung quan trọng để ôn nhanh.</p>
+    <div class="hero-tags">
+      <span class="tag t1">Lịch sử máy tính</span>
+      <span class="tag t2">Phần cứng &amp; kiến trúc</span>
+      <span class="tag t3">Phần mềm &amp; OS</span>
+      <span class="tag t4">Mạng máy tính</span>
+      <span class="tag t5">Dữ liệu &amp; Cloud</span>
+    </div>
+  </div>
+  <div class="hero-code">
+    <div class="dots"><span></span><span></span><span></span></div>
+<pre style="margin:0;white-space:pre-wrap;">Mô hình hoạt động máy tính:
+
+INPUT  → xử lý (CPU) → OUTPUT
+           ↑↓
+        bộ nhớ (RAM)
+           ↑↓
+   lưu trữ (STORAGE)
+
+1 Byte  = 8 bit
+1 KB    = 1.024 B
+1 MB    = 1.024 KB
+1 GB    = 1.024 MB</pre>
+  </div>
+</div>
+
+<section id="mindmap">
+  <div class="section-head">
+    <span class="kicker">Mind map</span>
+    <h2>Toàn cảnh Phần 1 trong 1 bức tranh</h2>
+    <p>8 nhánh kiến thức chính — bấm vào từng nhánh để đọc chi tiết bên dưới.</p>
+  </div>
+
+  <div class="mindmap-wrap">
+    <div class="mindmap">
+      <svg viewBox="0 0 940 760" preserveAspectRatio="none">
+        <line x1="470" y1="380" x2="180" y2="120" stroke="#f6c445" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="770" y2="110" stroke="#e45f2b" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="120" y2="330" stroke="#a0e548" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="830" y2="330" stroke="#72fa93" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="120" y2="540" stroke="#9ac1f0" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="830" y2="540" stroke="#e45f2b" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="290" y2="700" stroke="#a0e548" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="660" y2="700" stroke="#f6c445" stroke-width="2.5" stroke-dasharray="5 5"/>
+      </svg>
+
+      <div class="mm-center">PHẦN 1<br><span style="font-weight:400;font-size:.7rem;opacity:.9;">Tổng quan hệ thống máy tính</span></div>
+
+      <a href="#lich-su" class="mm-node n1"><span class="num">1</span><div class="title">Lịch sử máy tính</div><div class="desc">Từ bàn tính đến 5 thế hệ máy tính</div></a>
+      <a href="#phan-cung" class="mm-node n2"><span class="num">2</span><div class="title">Phần cứng</div><div class="desc">Input, Output, Storage, System Unit</div></a>
+      <a href="#kien-truc" class="mm-node n3"><span class="num">3</span><div class="title">Kiến trúc bên trong</div><div class="desc">CPU, RAM/ROM, Bus, đơn vị đo</div></a>
+      <a href="#phan-mem" class="mm-node n4"><span class="num">4</span><div class="title">Phần mềm</div><div class="desc">System, Application, Middleware</div></a>
+      <a href="#he-dieu-hanh" class="mm-node n5"><span class="num">5</span><div class="title">Hệ điều hành</div><div class="desc">Chức năng, phân loại, GUI vs CLI</div></a>
+      <a href="#loai-may" class="mm-node n6"><span class="num">6</span><div class="title">Các loại máy tính</div><div class="desc">PC, Laptop, Mainframe, Workstation</div></a>
+      <a href="#mang" class="mm-node n7"><span class="num">7</span><div class="title">Mạng máy tính</div><div class="desc">LAN, WAN, mô hình, giao thức</div></a>
+      <a href="#du-lieu" class="mm-node n8"><span class="num">8</span><div class="title">Dữ liệu &amp; Cloud</div><div class="desc">Cấu trúc dữ liệu, IaaS/PaaS/SaaS</div></a>
+    </div>
+  </div>
+</section>
+
+<section id="chi-tiet" style="padding-top:6px;">
+
+  <!-- 1. LICH SU -->
+  <div class="topic k1" id="lich-su">
+    <div class="topic-head">
+      <div class="topic-num">1</div>
+      <div><h3>Lịch sử máy tính</h3><div class="sub">Từ bàn tính cơ học đến 5 thế hệ máy tính hiện đại</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Giai đoạn cơ khí</h4>
+        <ul>
+          <li><b>Bàn tính (Counting frame)</b> — dùng đầu tiên ở Trung Quốc, sau đó Hy Lạp và La Mã cổ đại áp dụng</li>
+          <li><b>Cỗ máy Leibniz</b> — dùng bánh răng, nhập dữ liệu bằng cách chỉnh vị trí bánh răng, vị trí cuối cùng chính là kết quả phép tính</li>
+          <li><b>Analytical Engine (Babbage)</b> — chưa từng được chế tạo thành công, nhưng có khả năng lập trình qua các lỗ trên tấm giấy</li>
+          <li><b>Ada Lovelace</b> — lập trình viên đầu tiên trên thế giới, viết thuật toán lý thuyết cho máy Babbage</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Giai đoạn điện cơ &amp; điện tử</h4>
+        <ul>
+          <li><b>Thẻ đục lỗ</b> (1801 → giữa 1970s) — Herman Hollerith dùng để đẩy nhanh điều tra dân số Mỹ (1890)</li>
+          <li><b>Máy điện cơ</b> (đầu 1940s) — máy Stibitz (Bell Labs, 1940), máy Mark I (Harvard/IBM, 1944)</li>
+          <li><b>Máy điện tử hoàn toàn</b> — Atanasoff-Berry, máy giải mã Colossus (Anh, Thế chiến II), ENIAC — máy tính điện tử linh hoạt đầu tiên</li>
+          <li><b>Cách mạng bán dẫn</b> — transistor rồi mạch tích hợp (IC) trên silicon, máy tính thu nhỏ từ cỡ 1 căn phòng còn bằng 1 chiếc tủ</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:22px;">5 thế hệ máy tính</h4>
+    <table class="spec">
+      <tr><th>Thế hệ</th><th>Công nghệ chính</th><th>Đặc điểm</th></tr>
+      <tr><td>1 (1946–1959)</td><td>Ống chân không</td><td>Kích thước bằng cả 1 kho hàng, dùng cho mục đích quân sự, lập trình bằng ngôn ngữ máy</td></tr>
+      <tr><td>2 (1950–giữa 60s)</td><td>Transistor</td><td>Linh kiện nhỏ hơn, xuất hiện ngôn ngữ COBOL (kinh doanh) và FORTRAN (toán/khoa học)</td></tr>
+      <tr><td>3 (giữa 60s–đầu 70s)</td><td>Mạch tích hợp (IC)</td><td>Nhiều transistor gộp trên 1 chip silicon vài inch vuông</td></tr>
+      <tr><td>4 (đầu 70s–nay)</td><td>Vi xử lý (microprocessor)</td><td>Máy tính cá nhân ra đời (Apple 1976, IBM PC 1981), giao diện đồ họa GUI xuất hiện</td></tr>
+      <tr><td>5 (hiện tại)</td><td>AI, Cloud, Big Data</td><td>Trí tuệ nhân tạo, điện toán đám mây, máy tính lượng tử</td></tr>
+    </table>
+
+    <div class="example-box"><b>⭐ Điểm hay hỏi:</b> Ada Lovelace được công nhận là lập trình viên đầu tiên của thế giới — dù máy Analytical Engine của Babbage chưa từng được chế tạo hoàn chỉnh, bà vẫn viết thuật toán lý thuyết cho nó.</div>
+    <div class="pill-row">
+      <span class="pill">💡 IBM PC 1981 dùng phần mềm do Microsoft phát triển — bước ngoặt để PC được doanh nghiệp chấp nhận rộng rãi</span>
+      <span class="pill">💡 Internet &amp; World Wide Web (Tim Berners-Lee) mở đường cho trình duyệt và công cụ tìm kiếm hiện đại</span>
+    </div>
+  </div>
+
+  <!-- 2. PHAN CUNG -->
+  <div class="topic k2" id="phan-cung">
+    <div class="topic-head">
+      <div class="topic-num">2</div>
+      <div><h3>Phần cứng (Hardware)</h3><div class="sub">Các bộ phận vật lý — sờ, chạm được của máy tính</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>4 nhóm phần cứng chính</h4>
+        <ul>
+          <li><b>Input Devices</b> — nhập dữ liệu: bàn phím, chuột, mic, webcam</li>
+          <li><b>Output Devices</b> — xuất dữ liệu đã xử lý: màn hình, máy in, loa</li>
+          <li><b>Storage Devices</b> — lưu trữ dữ liệu: HDD, SSD, USB, đĩa CD/DVD</li>
+          <li><b>System Unit</b> — hộp xử lý chính, chứa các linh kiện xử lý bên trong</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Bên trong System Unit</h4>
+        <ul>
+          <li><b>Motherboard</b> — bảng mạch chính, kết nối mọi linh kiện lại với nhau</li>
+          <li><b>CPU</b> — "bộ não", thực hiện và điều phối các lệnh</li>
+          <li><b>RAM</b> — bộ nhớ tạm cho dữ liệu đang xử lý</li>
+          <li><b>Power Supply</b> — chuyển dòng điện AC thành DC điện áp thấp</li>
+          <li><b>Khe cắm mở rộng &amp; cổng kết nối</b> — card đồ họa/âm thanh/mạng, cổng USB/HDMI</li>
+        </ul>
+      </div>
+    </div>
+
+    <table class="spec">
+      <tr><th>Phần mềm (Software)</th><th>Phần cứng (Hardware)</th></tr>
+      <tr><td>Là tập lệnh điều khiển máy tính</td><td>Là bộ phận vật lý gây ra việc xử lý dữ liệu</td></tr>
+      <tr><td>Không chạy được nếu thiếu phần cứng</td><td>Không thực hiện được tác vụ nào nếu thiếu phần mềm</td></tr>
+      <tr><td>Không thể chạm vào</td><td>Có thể nhìn thấy và chạm vào</td></tr>
+      <tr><td>Khi lỗi thì debug (sửa lỗi code)</td><td>Khi lỗi thì sửa chữa vật lý</td></tr>
+      <tr><td>Nếu không sửa được thì cài lại</td><td>Nếu không sửa được thì thay thế linh kiện</td></tr>
+    </table>
+
+    <div class="example-box"><b>⭐ Ghi nhớ:</b> phần cứng và phần mềm có quan hệ cộng sinh — thiếu phần mềm thì phần cứng bị giới hạn chức năng, thiếu phần cứng thì phần mềm không có gì để chạy trên đó cả.</div>
+  </div>
+
+  <!-- 3. KIEN TRUC -->
+  <div class="topic k3" id="kien-truc">
+    <div class="topic-head">
+      <div class="topic-num">3</div>
+      <div><h3>Kiến trúc bên trong (CPU · RAM · Bus)</h3><div class="sub">Cách các linh kiện chính xử lý và truyền dữ liệu</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>CPU gồm 3 phần</h4>
+        <ul>
+          <li><b>ALU</b> (Arithmetic Logic Unit) — thực hiện các phép tính số học và so sánh</li>
+          <li><b>Control Unit</b> — điều phối hoạt động: chuyển dữ liệu vào thanh ghi, kích hoạt ALU, gửi kết quả đi</li>
+          <li><b>Registers (thanh ghi)</b> — vùng lưu trữ tốc độ cao nhất, giữ đầu vào cho ALU và kết quả</li>
+        </ul>
+        <p>Tốc độ CPU đo bằng <b>GHz</b> (gigahertz) — số xung nhịp/giây, quyết định phần lớn tốc độ xử lý.</p>
+      </div>
+      <div class="info-card">
+        <h4>RAM vs ROM</h4>
+        <ul>
+          <li><b>RAM</b> — "tạm thời" (volatile), mất dữ liệu khi tắt máy; có 2 loại: SRAM (nhanh, đắt) và DRAM (cần refresh liên tục, rẻ hơn)</li>
+          <li><b>ROM</b> — "cố định" (non-volatile), chỉ đọc, chứa lệnh khởi động (BIOS); có PROM (ghi 1 lần) và EPROM (xóa được)</li>
+          <li><b>Bộ nhớ thứ cấp</b> — HDD (đĩa từ quay) và SSD (chip nhớ flash), lưu dữ liệu vĩnh viễn kể cả khi mất điện</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:20px;">Đơn vị đo dung lượng</h4>
+    <pre class="code">1 Byte  = <span class="c-num">8 bit</span>
+1 KB    = <span class="c-num">1.024</span> Byte
+1 MB    = <span class="c-num">1.024</span> KB
+1 GB    = <span class="c-num">1.024</span> MB
+1 TB    = <span class="c-num">1.024</span> GB   (~1.500 đĩa CD)
+1 PB    = <span class="c-num">1.024</span> TB   (~1,5 triệu đĩa CD)</pre>
+
+    <div class="example-box"><b>⭐ Bus gồm 3 loại:</b> bus địa chỉ (xác định vị trí bộ nhớ), bus điều khiển (ra lệnh), bus dữ liệu (truyền nội dung thật). Kích thước bus quyết định lượng dữ liệu truyền được cùng một lúc.</div>
+  </div>
+
+  <!-- 4. PHAN MEM -->
+  <div class="topic k4" id="phan-mem">
+    <div class="topic-head">
+      <div class="topic-num">4</div>
+      <div><h3>Phần mềm (Software)</h3><div class="sub">Tập lệnh vô hình điều khiển phần cứng hoạt động</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>System software</h4>
+        <p>Quản lý và điều khiển phần cứng để application software hoạt động được. <b>Bắt buộc phải có</b> — mỗi máy chỉ cần 1 hệ điều hành.</p>
+        <p>Ví dụ: Windows, Mac OS X, Linux, và các tiện ích như Anti-virus, WinRAR, Disk Cleanup.</p>
+      </div>
+      <div class="info-card">
+        <h4>Application software &amp; Middleware</h4>
+        <p><b>Application software</b> — giúp người dùng thực hiện tác vụ cụ thể (Word, Photoshop). Tùy chọn — 1 máy có thể cài nhiều ứng dụng.</p>
+        <p><b>Middleware</b> — thành phần trung gian giúp phần cứng và phần mềm "nói chuyện" được với nhau, chia sẻ dữ liệu giữa các phần tử hệ thống.</p>
+      </div>
+    </div>
+
+    <table class="spec">
+      <tr><th>Tiêu chí</th><th>System Software</th><th>Application Software</th></tr>
+      <tr><td>Mục đích dùng</td><td>Giúp máy tính hoạt động được</td><td>Giúp người dùng làm việc hiệu quả với tài liệu</td></tr>
+      <tr><td>Bắt buộc?</td><td>Bắt buộc</td><td>Tùy chọn — theo nhu cầu sử dụng</td></tr>
+      <tr><td>Số lượng</td><td>Mỗi máy cần 1 hệ điều hành</td><td>Có thể có nhiều ứng dụng cùng lúc</td></tr>
+      <tr><td>Sự phụ thuộc</td><td>Độc lập — dùng được không cần app</td><td>Phụ thuộc — không chạy được nếu thiếu OS</td></tr>
+      <tr><td>Chức năng</td><td>Tạo môi trường để ứng dụng chạy</td><td>Cho phép hoàn thành tác vụ cụ thể</td></tr>
+    </table>
+
+    <div class="example-box"><b>⭐ Điểm cốt lõi:</b> mỗi máy tính CHỈ CẦN 1 hệ điều hành (bắt buộc), nhưng có thể cài NHIỀU ứng dụng khác nhau (tùy chọn) — đây là khác biệt hay bị nhầm nhất.</div>
+  </div>
+
+  <!-- 5. HE DIEU HANH -->
+  <div class="topic k5" id="he-dieu-hanh">
+    <div class="topic-head">
+      <div class="topic-num">5</div>
+      <div><h3>Hệ điều hành (Operating System)</h3><div class="sub">Cầu nối giữa người dùng, ứng dụng và phần cứng</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Chức năng của OS</h4>
+        <ul>
+          <li>Nhận dữ liệu từ input, đảm bảo output đúng thiết bị</li>
+          <li>Quản lý bộ nhớ, cấp phát cho từng chương trình</li>
+          <li>Tải và điều khiển việc chạy ứng dụng</li>
+          <li>Xử lý lỗi, thông báo cho người dùng</li>
+          <li>Cung cấp giao diện người dùng &amp; quản lý bảo mật hệ thống</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Phân loại hệ điều hành</h4>
+        <ul>
+          <li><b>Đơn người dùng</b> (DOS, Windows 95) vs <b>đa người dùng</b> (Unix)</li>
+          <li><b>Đơn nhiệm</b> (1 chương trình/lần) vs <b>đa nhiệm</b> (nhiều chương trình cùng lúc)</li>
+          <li><b>Hệ phân tán</b> — nhiều máy tính độc lập hoạt động như 1 máy duy nhất</li>
+          <li><b>Hệ nhúng</b> — nằm trên chip ROM của thiết bị di động/điện tử</li>
+        </ul>
+      </div>
+    </div>
+
+    <table class="spec">
+      <tr><th>Tiêu chí</th><th>GUI (Graphical UI)</th><th>CLI (Command Line)</th></tr>
+      <tr><td>Cách thao tác</td><td>Click chuột vào biểu tượng (WIMP)</td><td>Gõ lệnh chính xác từng dòng</td></tr>
+      <tr><td>Độ dễ dùng</td><td>Dễ học, trực quan</td><td>Phải nhớ nhiều lệnh</td></tr>
+      <tr><td>Tốc độ thao tác</td><td>Chậm hơn khi làm việc lặp lại</td><td>Nhanh khi đã thành thạo</td></tr>
+      <tr><td>Ví dụ</td><td>Windows, Mac OS</td><td>DOS</td></tr>
+    </table>
+
+    <div class="example-box"><b>⭐ Ghi nhớ:</b> GUI = WIMP → <b>W</b>indows, <b>I</b>con, <b>M</b>enu, <b>P</b>ointer — 4 thành phần cấu thành giao diện đồ họa.</div>
+  </div>
+
+  <!-- 6. LOAI MAY -->
+  <div class="topic k1" id="loai-may">
+    <div class="topic-head">
+      <div class="topic-num">6</div>
+      <div><h3>Các loại máy tính</h3><div class="sub">Từ máy tính cá nhân đến hệ thống phục vụ hàng nghìn người dùng</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Máy tính cá nhân</h4>
+        <ul>
+          <li><b>Desktop</b> — rẻ, cấu hình mạnh, nhưng cồng kềnh, không di động</li>
+          <li><b>Laptop</b> — gọn nhẹ, tích hợp pin, dễ mang theo nhưng tỏa nhiệt khó hơn</li>
+          <li><b>Netbook</b> — phiên bản thu nhỏ của Laptop, không có ổ quang, bàn phím chỉ ~80% kích thước</li>
+          <li><b>PDA</b> — cầm tay, dùng bút cảm ứng, nhập văn bản chậm</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Máy tính quy mô lớn</h4>
+        <ul>
+          <li><b>Siêu máy tính</b> — hàng nghìn vi xử lý liên kết, dùng dự báo thời tiết, nghiên cứu khoa học</li>
+          <li><b>Mainframe</b> — phục vụ hàng trăm–nghìn người dùng và nhiều chương trình cùng lúc</li>
+          <li><b>Workstation</b> — 1 người dùng, cấu hình cực mạnh cho đồ họa/kỹ thuật</li>
+          <li><b>Microcomputer (PC)</b> — thuật ngữ chung cho Desktop, Laptop và thiết bị di động</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="example-box"><b>⭐ Dễ nhầm:</b> Netbook <u>không phải</u> là một dòng máy tính độc lập nhỏ hơn Desktop — nó thực chất là phiên bản thu nhỏ của <b>Laptop</b>.</div>
+  </div>
+
+  <!-- 7. MANG -->
+  <div class="topic k3" id="mang">
+    <div class="topic-head">
+      <div class="topic-num">7</div>
+      <div><h3>Mạng máy tính (Network)</h3><div class="sub">Kết nối các thiết bị để chia sẻ dữ liệu và thông tin</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Phạm vi mạng</h4>
+        <ul>
+          <li><b>LAN</b> (Local Area Network) — phạm vi nhỏ: nhà, trường học, tòa nhà văn phòng</li>
+          <li><b>WAN</b> (Wide Area Network) — phạm vi rộng: thành phố, quốc gia, toàn cầu</li>
+          <li><b>Internet</b> — mạng WAN công cộng lớn nhất thế giới</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Mô hình &amp; cấu trúc mạng</h4>
+        <ul>
+          <li><b>Client-to-server</b> — máy chủ trung tâm phục vụ nhiều máy khách</li>
+          <li><b>Peer-to-peer</b> — các máy ngang hàng, tự chia sẻ trực tiếp với nhau</li>
+          <li><b>Cấu trúc phổ biến:</b> dạng bus, dạng sao, dạng vòng, dạng lưới</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="example-box"><b>⭐ Giao thức quan trọng:</b> TCP/IP là giao thức phổ biến nhất, được dùng rộng rãi trên Internet và cả trong mạng gia đình.</div>
+    <div class="pill-row">
+      <span class="pill" style="cursor:pointer;" onclick="setPart('2')">📖 Xem chi tiết đầy đủ hơn ở Phần 2 → phân loại mạng, thiết bị, Internet, DNS, giao thức &amp; an ninh mạng</span>
+    </div>
+  </div>
+
+  <!-- 8. DU LIEU -->
+  <div class="topic k4" id="du-lieu">
+    <div class="topic-head">
+      <div class="topic-num">8</div>
+      <div><h3>Dữ liệu, thông tin &amp; điện toán đám mây</h3><div class="sub">Từ dữ liệu thô đến các mô hình dịch vụ đám mây</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Dữ liệu có cấu trúc vs phi cấu trúc</h4>
+        <ul>
+          <li><b>Có cấu trúc</b> — mã hóa gọn gàng, dễ phân tích. VD: bảng tên, email, số điện thoại</li>
+          <li><b>Phi cấu trúc</b> — chiếm phần lớn dữ liệu, khó phân tích hơn. VD: văn bản, blog, video, tweet</li>
+          <li><b>Big Data</b> — dữ liệu tích lũy cực nhanh, cần <b>làm sạch dữ liệu (data cleansing)</b> trước khi dùng để loại bản ghi trùng lặp, lỗi thời</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>3 mô hình điện toán đám mây</h4>
+        <ul>
+          <li><b>IaaS</b> — thuê hạ tầng (server, mạng), tự quản lý OS trở lên. VD: AWS EC2</li>
+          <li><b>PaaS</b> — thuê nền tảng, chỉ cần viết code và triển khai. VD: Power Apps</li>
+          <li><b>SaaS</b> — dùng phần mềm trọn gói qua trình duyệt. VD: Gmail, Microsoft 365</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pill-row">
+      <span class="pill">🍕 IaaS = mua nguyên liệu, tự nướng ở nhà (kiểm soát nhiều nhất)</span>
+      <span class="pill">🍕 PaaS = mua bột bánh có sẵn, tự thêm topping</span>
+      <span class="pill">🍕 SaaS = đặt bánh giao tận nơi (tiện nhất, kiểm soát ít nhất)</span>
+    </div>
+
+    <div class="example-box"><b>⭐ Phân biệt 3 mô hình Cloud</b> theo đúng 1 tiêu chí: bạn quản lý bao nhiêu tầng hệ thống so với nhà cung cấp — càng quản lý nhiều (IaaS) càng linh hoạt nhưng càng phức tạp; càng ít quản lý (SaaS) càng tiện nhưng càng ít tùy chỉnh.</div>
+  </div>
+
+</section>
+
+</div><!-- /part-page 1 -->
+
+<div class="part-page" data-part="2">
+
+<div class="hero" id="phan2-top">
+  <div>
+    <span class="eyebrow blue">🌐 Phần 2 · Tóm tắt &amp; ghi nhớ</span>
+    <h1>Mạng máy tính &amp; <span class="accent">Phần mềm hệ thống</span></h1>
+    <p>Tổng hợp và mở rộng: phân loại &amp; cấu trúc mạng, thiết bị &amp; phương tiện truyền dẫn, kiến trúc Internet, địa chỉ IP &amp; tên miền, giao thức &amp; các dịch vụ mạng, World Wide Web, an ninh mạng — và mới bổ sung: hệ điều hành chuyên sâu, ngôn ngữ lập trình, phân loại phần mềm.</p>
+    <div class="hero-tags">
+      <span class="tag t5">PAN · LAN · WAN</span>
+      <span class="tag t3">Thiết bị mạng</span>
+      <span class="tag t1">Internet &amp; ISP</span>
+      <span class="tag t4">DNS &amp; IP</span>
+      <span class="tag t2">An ninh mạng</span>
+      <span class="tag t5">Hệ điều hành &amp; Phần mềm</span>
+    </div>
+  </div>
+  <div class="hero-code">
+    <div class="dots"><span></span><span></span><span></span></div>
+<pre style="margin:0;white-space:pre-wrap;">Cấu trúc 1 URL:
+
+http://subdomain.domain.tld/
+       thư-mục/tài-liệu.html
+
+Phân cấp ISP:
+Tier 1 (lõi quốc tế)
+   ↓
+Tier 2 (khu vực)
+   ↓
+Tier 3 (nhà cung cấp địa phương)
+   ↓
+End system (máy của bạn)</pre>
+  </div>
+</div>
+
+<section id="mindmap2" style="padding-top:10px;">
+  <div class="section-head">
+    <span class="kicker">Mind map</span>
+    <h2>Toàn cảnh Phần 2 trong 1 bức tranh</h2>
+    <p>10 nhánh kiến thức chính về mạng máy tính &amp; phần mềm hệ thống — bấm vào từng nhánh để đọc chi tiết bên dưới.</p>
+  </div>
+
+  <div class="mindmap-wrap">
+    <div class="mindmap" style="min-height:860px;">
+      <svg viewBox="0 0 940 760" preserveAspectRatio="none">
+        <line x1="470" y1="380" x2="470" y2="91"  stroke="#f6c445" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="685" y2="146" stroke="#e45f2b" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="819" y2="291" stroke="#a0e548" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="819" y2="469" stroke="#72fa93" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="685" y2="614" stroke="#9ac1f0" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="470" y2="669" stroke="#e45f2b" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="255" y2="614" stroke="#a0e548" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="121" y2="469" stroke="#f6c445" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="121" y2="291" stroke="#9ac1f0" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="255" y2="146" stroke="#72fa93" stroke-width="2.5" stroke-dasharray="5 5"/>
+      </svg>
+
+      <div class="mm-center">PHẦN 2<br><span style="font-weight:400;font-size:.7rem;opacity:.9;">Mạng máy tính &amp; Phần mềm</span></div>
+
+      <a href="#mang-loai" class="mm-node" style="left:41.0%;top:8.0%;"><span class="num" style="background:#f6c445;">1</span><div class="title">Phân loại &amp; Topology</div><div class="desc">PAN, LAN, WAN · Bus, Star, Ring, Mesh</div></a>
+      <a href="#mang-tp" class="mm-node" style="left:63.9%;top:15.3%;"><span class="num" style="background:#e45f2b;color:#fff;">2</span><div class="title">Thành phần mạng</div><div class="desc">Thiết bị, phương tiện truyền dẫn, băng thông</div></a>
+      <a href="#mang-internet" class="mm-node" style="left:78.1%;top:34.3%;"><span class="num" style="background:#a0e548;">3</span><div class="title">Internet &amp; kiến trúc</div><div class="desc">DARPA, ISP Tier 1/2/3, End systems</div></a>
+      <a href="#mang-diachi" class="mm-node" style="left:78.1%;top:57.7%;"><span class="num" style="background:#72fa93;">4</span><div class="title">Địa chỉ &amp; tên miền</div><div class="desc">IPv4/IPv6, ICANN, DNS, TLD</div></a>
+      <a href="#mang-giaothuc" class="mm-node" style="left:63.9%;top:76.7%;"><span class="num" style="background:#9ac1f0;">5</span><div class="title">Giao thức &amp; dịch vụ</div><div class="desc">HTTP, Client/Server, P2P, Email, VoIP</div></a>
+      <a href="#mang-web" class="mm-node" style="left:41.0%;top:84.0%;"><span class="num" style="background:#e45f2b;color:#fff;">6</span><div class="title">World Wide Web</div><div class="desc">Lịch sử, Browser/Server, URL, HTML/XML</div></a>
+      <a href="#mang-anninh" class="mm-node" style="left:18.1%;top:76.7%;"><span class="num" style="background:#a0e548;">7</span><div class="title">An ninh mạng</div><div class="desc">Malware, tấn công mạng, biện pháp bảo vệ</div></a>
+      <a href="#he-dieu-hanh-chuyen-sau" class="mm-node" style="left:3.9%;top:57.7%;"><span class="num" style="background:#f6c445;">8</span><div class="title">Hệ điều hành chuyên sâu</div><div class="desc">Kernel, driver, bộ nhớ ảo, CLI/GUI</div></a>
+      <a href="#ngon-ngu-lap-trinh" class="mm-node" style="left:3.9%;top:34.3%;"><span class="num" style="background:#9ac1f0;">9</span><div class="title">Ngôn ngữ lập trình</div><div class="desc">Ngôn ngữ máy → cấp cao, Compiler/Interpreter</div></a>
+      <a href="#phan-loai-phan-mem" class="mm-node" style="left:18.1%;top:15.3%;"><span class="num" style="background:#72fa93;">10</span><div class="title">Phân loại phần mềm</div><div class="desc">Năng suất, Hợp tác, Chuyên dụng, Cấp phép</div></a>
+    </div>
+  </div>
+</section>
+
+<section id="chi-tiet-2" style="padding-top:6px;">
+
+
+  <!-- P1. PHAN LOAI & TOPOLOGY -->
+  <div class="topic k1" id="mang-loai">
+    <div class="topic-head">
+      <div class="topic-num">1</div>
+      <div><h3>Phân loại &amp; cấu trúc (topology) mạng</h3><div class="sub">Mạng khác nhau theo phạm vi kết nối và cách bố trí thiết bị</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Ba loại mạng theo phạm vi</h4>
+        <ul>
+          <li><b>PAN</b> (Personal Area Network) — phạm vi rất nhỏ, vài feet. VD: tai nghe không dây ↔ điện thoại, chuột không dây ↔ PC</li>
+          <li><b>LAN</b> (Local Area Network) — các máy tính trong cùng 1 tòa nhà/khu nhà. VD: máy tính trong 1 nhà máy sản xuất</li>
+          <li><b>WAN</b> (Wide Area Network) — kết nối hệ thống ở khoảng cách xa, nhiều nơi trên thế giới. Internet chính là mạng WAN lớn nhất</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Bốn cấu trúc topology phổ biến</h4>
+        <ul>
+          <li><b>Bus</b> — mọi thiết bị dùng chung 1 đường truyền ("bus"); phổ biến từ thập niên 1990 theo chuẩn <b>Ethernet</b></li>
+          <li><b>Star</b> — có 1 điểm trung tâm (máy chủ hoặc Access Point) mà mọi thiết bị kết nối vào; ý tưởng có từ 1970s, nay dùng nhiều trong mạng không dây</li>
+          <li><b>Ring</b> — các nút kết nối trực tiếp với nhau theo vòng, vai trò ngang hàng</li>
+          <li><b>Mesh</b> — mọi thiết bị kết nối với tất cả thiết bị khác → độ tin cậy cao nhưng tăng lượng dữ liệu truyền qua mạng</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="example-box"><b>⭐ Hai dạng phổ biến nhất:</b> Bus và Star. Bus gắn liền với chuẩn Ethernet (từ 1990s); Star bắt nguồn từ mô hình máy chủ trung tâm (1970s) và ngày nay là nền tảng của mạng không dây (thiết bị ↔ Access Point).</div>
+  </div>
+
+  <!-- P2. THANH PHAN MANG -->
+  <div class="topic k2" id="mang-tp">
+    <div class="topic-head">
+      <div class="topic-num">2</div>
+      <div><h3>Thành phần của mạng máy tính</h3><div class="sub">Thiết bị nối mạng, phương tiện truyền dẫn và băng thông</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Thiết bị kết nối mạng (LAN)</h4>
+        <ul>
+          <li><b>Repeater</b> — đơn giản nhất, chỉ khuếch đại/truyền lại tín hiệu vật lý, không quan tâm nội dung</li>
+          <li><b>Bridge</b> — đọc được thông tin, chỉ chuyển tiếp thông điệp đến đúng phía cần đến</li>
+          <li><b>Switch</b> — bản nâng cấp của Bridge, kết nối đồng thời nhiều mạch truyền dẫn</li>
+          <li><b>Router</b> — kết nối các mạng riêng biệt, có 2 địa chỉ IP (nội bộ + Internet), dùng <b>forwarding table</b> để định tuyến gói tin</li>
+          <li><b>Gateway</b> — điểm ranh giới giữa mạng nội bộ và Internet toàn cầu</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Phương tiện truyền dẫn</h4>
+        <p><b>Có dây:</b> cáp xoắn đôi (mốc so sánh cơ bản) · cáp đồng trục (băng thông ≈ 80 lần cáp xoắn đôi, dùng cho TV/modem cáp) · cáp quang (phản xạ ánh sáng, băng thông ≈ 26.000 lần cáp xoắn đôi)</p>
+        <p><b>Không dây:</b> Wi-Fi (tên gọi chỉ là cách chơi chữ tiếp thị, <u>không</u> viết tắt "Wireless Fidelity" theo IEEE; phạm vi ~300 feet) · Bluetooth (&lt;30 feet) · NFC (cực gần, dùng cho thanh toán di động)</p>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:20px;">Các thiết bị đầu-cuối thường gặp trong mạng</h4>
+    <table class="spec">
+      <tr><th>Thiết bị</th><th>Đặc điểm &amp; cách kết nối mạng</th></tr>
+      <tr><td>Laptop</td><td>Máy tính cá nhân gập gọn, kết nối mạng qua Wi-Fi hoặc Ethernet</td></tr>
+      <tr><td>Desktop</td><td>Thùng máy cố định, thường kết nối qua Ethernet, có thể dùng thêm Wi-Fi</td></tr>
+      <tr><td>Tablet / Smartphone</td><td>Thiết bị cầm tay, kết nối qua Wi-Fi; smartphone còn dùng sóng di động (cellular)</td></tr>
+      <tr><td>Printer</td><td>Kết nối qua Router/Switch bằng Ethernet hoặc Wi-Fi để mọi máy trong mạng cùng dùng chung</td></tr>
+      <tr><td>Server</td><td>Máy tính cung cấp dịch vụ (lưu trữ website, định tuyến…) cho các thiết bị khác</td></tr>
+      <tr><td>Modem</td><td>Cầu nối giữa mạng khách hàng và ISP, chuyển đổi tín hiệu số ↔ tương tự, là điểm truy cập Internet</td></tr>
+      <tr><td>Firewall</td><td>Giám sát lưu lượng mạng, chặn traffic vi phạm quy tắc an toàn, làm hàng rào giữa mạng riêng và Internet</td></tr>
+    </table>
+
+    <div class="example-box"><b>⭐ Băng thông:</b> đo bằng <b>Mbps</b>/<b>Gbps</b>. Lưu ý phân biệt: 1 Megabit (Mb) = 1.000 kilobit (tốc độ truyền), còn 1 Megabyte (MB) = 1.024 kilobyte (dung lượng lưu trữ) — hai đơn vị hoàn toàn khác nhau.</div>
+  </div>
+
+  <!-- P3. INTERNET & KIEN TRUC -->
+  <div class="topic k3" id="mang-internet">
+    <div class="topic-head">
+      <div class="topic-num">3</div>
+      <div><h3>Internet là gì? Kiến trúc &amp; kết nối các mạng lưới</h3><div class="sub">"Mạng của các mạng" — nguồn gốc và cách các nhà mạng ghép nối với nhau</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Nguồn gốc &amp; khái niệm</h4>
+        <p>Internet khởi đầu là một dự án nghiên cứu đầu những năm 1960, được tài trợ bởi <b>DARPA</b> (Cơ quan Dự án Nghiên cứu Tiên tiến Quốc phòng Mỹ), với mục tiêu liên kết nhiều mạng máy tính để hoạt động như <b>1 hệ thống duy nhất</b>, không bị ảnh hưởng bởi thảm họa làm gián đoạn các thành phần cục bộ.</p>
+        <p>Do đó Internet còn được gọi là <b>"mạng của các mạng" (network of networks)</b> — các mạng thành viên vẫn giữ tính độc lập riêng, nhưng vẫn giao tiếp được với nhau.</p>
+      </div>
+      <div class="info-card">
+        <h4>Cấu trúc phân cấp ISP</h4>
+        <ul>
+          <li><b>Tier 1</b> — cao nhất, ít phổ biến nhất nhưng quan trọng nhất; dùng mạng WAN quốc tế tốc độ cao, do các công ty viễn thông lớn vận hành</li>
+          <li><b>Tier 2</b> — phổ biến hơn, hoạt động trong phạm vi khu vực; cùng Tier 1 tạo nên hạ tầng truyền thông lõi của Internet</li>
+          <li><b>Tier 3</b> — mạng độc lập/nội bộ, cung cấp dịch vụ Internet trực tiếp cho hộ gia đình và doanh nghiệp</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:18px;">
+      <div class="info-card">
+        <h4>Hệ thống cuối (End Systems)</h4>
+        <p>Là các thiết bị kết nối tới ISP Tier 3: PC, laptop, smartphone và cả thiết bị thông minh khác (camera, ô tô, thiết bị gia dụng). Công nghệ kết nối phổ biến: đường dây điện thoại, cáp, vệ tinh.</p>
+      </div>
+      <div class="info-card">
+        <h4>Ghép nối các mạng lưới lại với nhau</h4>
+        <p><b>Router</b> có 2 giao diện mạng (1 địa chỉ IP nội bộ + 1 địa chỉ IP Internet). Máy gửi đính kèm địa chỉ Internet của máy nhận vào gói tin rồi chuyển tới router cục bộ; các router dựa vào <b>forwarding table</b> để chọn lộ trình tối ưu tiếp theo.</p>
+      </div>
+    </div>
+
+    <div class="example-box"><b>⭐ Ghi nhớ:</b> "mạng của các mạng" ra đời để giải quyết sự không tương thích giữa các mạng riêng lẻ — mỗi mạng thành viên vẫn giữ đặc điểm riêng nhưng vẫn liên lạc được nhờ Router/Gateway.</div>
+  </div>
+
+  <!-- P4. DIA CHI & DNS -->
+  <div class="topic k4" id="mang-diachi">
+    <div class="topic-head">
+      <div class="topic-num">4</div>
+      <div><h3>Địa chỉ Internet, ICANN &amp; Tên miền (DNS)</h3><div class="sub">Từ dãy số IP khó nhớ đến tên miền thân thiện với con người</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Địa chỉ IP (Internet Protocol)</h4>
+        <ul>
+          <li>Là hệ thống định danh <b>duy nhất</b> cho từng máy tính/thiết bị trên Internet</li>
+          <li><b>IPv4</b> — địa chỉ 32-bit, biểu diễn bằng các nhóm số thập phân cách nhau bởi dấu chấm (VD: <code>192.207.177.103</code>)</li>
+          <li><b>IPv6</b> — địa chỉ 128-bit, ra đời để mở rộng không gian địa chỉ khi IPv4 dần cạn kiệt</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>ICANN &amp; DNS</h4>
+        <ul>
+          <li><b>ICANN</b> — tổ chức phi lợi nhuận điều phối hoạt động chung của Internet; cấp các khối địa chỉ IP cho ISP để họ gán lại cho thiết bị người dùng, đồng thời quản lý đăng ký tên miền</li>
+          <li><b>DNS (Domain Name System)</b> — dùng tên miền dễ nhớ (VD: <code>wgu.edu</code>) thay cho dãy số IP phức tạp</li>
+          <li><b>TLD</b> (tên miền cấp cao nhất) — VD: <code>.edu</code> (giáo dục), <code>.com</code> (thương mại), <code>.gov</code> (chính phủ), <code>.org</code> (phi lợi nhuận); hoặc mã quốc gia 2 chữ cái như <code>.au</code>, <code>.kr</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="example-box blue"><b>🔗 Liên hệ vai trò quản trị hạ tầng web:</b> việc <b>cài đặt, cấu hình, bảo mật và bảo trì</b> cho một website thường do 3 vai trò đảm nhiệm — <b>Network Administrator</b> (cấu hình mạng/kết nối, DNS, router), <b>Security Administrator</b> (thiết lập an ninh, tường lửa) và <b>Database Administrator</b> (cài đặt, cấu hình, bảo trì cơ sở dữ liệu phía sau website).</div>
+  </div>
+
+  <!-- P5. GIAO THUC & DICH VU -->
+  <div class="topic k5" id="mang-giaothuc">
+    <div class="topic-head">
+      <div class="topic-num">5</div>
+      <div><h3>Giao thức mạng &amp; các dịch vụ phổ biến</h3><div class="sub">Quy tắc chung giúp các thiết bị "nói cùng 1 ngôn ngữ"</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Vai trò của giao thức (Protocol)</h4>
+        <p>Định ra quy tắc, thủ tục và định dạng truyền thông thống nhất — ngăn xung đột dữ liệu, đảm bảo tương thích phần cứng/phần mềm giữa các hãng khác nhau. Khi web phát triển phức tạp hơn, <b>HTTP</b> trở thành giao thức nền tảng quản lý truyền thông giữa trình duyệt và máy chủ web.</p>
+      </div>
+      <div class="info-card">
+        <h4>Mô hình giao tiếp liên tiến trình (IPC)</h4>
+        <ul>
+          <li><b>Client/Server</b> — vai trò rõ ràng: bên yêu cầu (Client) và bên đáp ứng (Server). VD: dịch vụ in ấn chung, máy chủ lưu trữ dữ liệu</li>
+          <li><b>Peer-to-Peer (P2P)</b> — các máy bình đẳng, vừa yêu cầu vừa chia sẻ tài nguyên. VD: nhắn tin, game online, chia sẻ file dạng swarm</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:18px;">
+      <div class="info-card">
+        <h4>Hệ thống phân tán (Distributed Systems)</h4>
+        <ul>
+          <li><b>Cluster</b> — liên kết chặt chẽ, hiệu suất cao với chi phí tối ưu, tự dự phòng lỗi &amp; cân bằng tải tốt</li>
+          <li><b>Grid</b> — liên kết lỏng lẻo hơn Cluster, dùng phần mềm chuyên dụng điều phối công việc lớn</li>
+          <li><b>Cloud</b> — tài nguyên ảo hóa linh hoạt theo nhu cầu (AWS, Google Cloud), sẵn sàng cao nhưng cần chú ý bảo mật</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Các dịch vụ chạy trên giao thức mạng</h4>
+        <ul>
+          <li><b>Email</b> — SMTP gửi thư đi (kết hợp DNS để tìm địa chỉ người nhận); POP3/IMAP dùng để lấy thư về máy người dùng</li>
+          <li><b>VoIP</b> — gọi thoại qua Internet theo mô hình P2P, có thể qua phần mềm hoặc bộ chuyển đổi analog↔digital</li>
+          <li><b>Streaming</b> — truyền audio/video theo yêu cầu (on-demand), dùng mạng <b>CDN</b> (nhiều máy chủ phân tán) kết hợp định tuyến <b>Anycast</b> để nối người dùng với server gần nhất</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="example-box"><b>⭐ Ghi nhớ nhanh:</b> Client/Server = phân vai rõ ràng (ai hỏi – ai trả lời); Peer-to-Peer = ai cũng bình đẳng, vừa xin vừa cho.</div>
+  </div>
+
+  <!-- P6. WWW -->
+  <div class="topic k1" id="mang-web">
+    <div class="topic-head">
+      <div class="topic-num">6</div>
+      <div><h3>World Wide Web (WWW)</h3><div class="sub">Ứng dụng phổ biến nhất chạy trên nền Internet</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Lịch sử hình thành</h4>
+        <p>Đầu những năm 1990, <b>Tim Berners-Lee</b> nhận ra tiềm năng của việc kết hợp công nghệ Internet với siêu văn bản (hypertext — các tài liệu liên kết với nhau), từ đó tạo ra World Wide Web. WWW gồm 3 phần: <b>định dạng tài liệu siêu văn bản</b>, <b>giao thức truyền tải</b> siêu văn bản qua mạng, và các <b>máy chủ</b> cung cấp trang khi có yêu cầu. Ngày nay WWW còn hỗ trợ hiển thị hình ảnh, âm thanh, video.</p>
+      </div>
+      <div class="info-card">
+        <h4>Trình duyệt &amp; Máy chủ Web</h4>
+        <p><b>Browser</b> (trình duyệt) — cài trên máy người dùng, có nhiệm vụ lấy tài liệu cần thiết và trình bày có tổ chức cho người xem.</p>
+        <p><b>Web server</b> — máy tính chứa các tài liệu siêu văn bản. Giao thức <b>HTTP</b> (hoặc tương tự) dùng để truyền dữ liệu giữa web server và browser.</p>
+      </div>
+    </div>
+
+    <table class="spec">
+      <tr><th>Thành phần</th><th>Vai trò</th></tr>
+      <tr><td>URL / URI</td><td>Địa chỉ duy nhất của 1 tài liệu trên WWW, gồm giao thức + tên miền (và tên miền con) + đường dẫn tới tài liệu. Dạng phổ biến: <code>http://subdomain.domain.tld/thư-mục/tên-tài-liệu.html</code></td></tr>
+      <tr><td>HTML</td><td>Ngôn ngữ đánh dấu siêu văn bản — dùng "thẻ" (tag) để xác định cách hiển thị tài liệu, tài nguyên đa phương tiện đi kèm, và các liên kết đến tài liệu khác</td></tr>
+      <tr><td>XML</td><td>Ngôn ngữ tiêu chuẩn để biểu diễn dữ liệu dưới dạng văn bản; tập trung vào <b>ngữ nghĩa (ý nghĩa)</b> của dữ liệu, khác với HTML tập trung vào <b>cách trình bày</b></td></tr>
+    </table>
+
+    <div class="example-box"><b>⭐ Dễ nhầm:</b> Internet và World Wide Web không phải là một — Internet là hạ tầng mạng toàn cầu (kết nối vật lý + giao thức), còn WWW chỉ là <u>một ứng dụng</u> chạy trên nền Internet đó (bên cạnh email, VoIP, streaming…).</div>
+  </div>
+
+  <!-- P7. AN NINH MANG -->
+  <div class="topic k2" id="mang-anninh">
+    <div class="topic-head">
+      <div class="topic-num">7</div>
+      <div><h3>An ninh mạng (Network Security)</h3><div class="sub">Nhận diện nguy cơ và biện pháp bảo vệ hệ thống mạng</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Malware (phần mềm độc hại)</h4>
+        <ul>
+          <li>Là bất kỳ phần mềm nào <b>cố ý</b> thiết kế để gây hại cho máy tính/hệ thống mạng — khác với "lỗi phần mềm" (software bug) vốn là sự cố vô tình</li>
+          <li><b>Virus</b> — ký sinh vào chương trình hợp pháp có sẵn, kích hoạt gây hại khi chương trình đó chạy</li>
+          <li><b>Worm (sâu máy tính)</b> — hoạt động độc lập, tự nhân bản và tự phát tán qua mạng, làm giảm hiệu suất hệ thống</li>
+          <li><b>Spyware</b> — âm thầm thu thập thông tin (mật khẩu, số thẻ tín dụng…) rồi gửi về cho kẻ tấn công</li>
+          <li><b>Phishing</b> — giả mạo email của tổ chức uy tín (ngân hàng, công ty dịch vụ) để lừa người dùng tự nguyện cung cấp thông tin cá nhân</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Tấn công mạng từ bên ngoài</h4>
+        <ul>
+          <li><b>DoS (Denial of Service)</b> — làm quá tải hệ thống nạn nhân bằng lượng lớn thông điệp gửi dồn dập, khiến hệ thống không đáp ứng được yêu cầu hợp lệ</li>
+          <li><b>Eavesdropping / Packet Sniffing</b> — đánh chặn gói dữ liệu truyền đi/đến để đánh cắp thông tin nhạy cảm, kể cả thông tin xác thực</li>
+          <li><b>Password Attacks</b> — thử các tổ hợp để bẻ khóa mật khẩu: <b>Dictionary Attack</b> (thử từ có nghĩa/thông dụng); <b>Rainbow Table Attack</b> (dùng bảng băm tính sẵn để dò ngược mật khẩu từ giá trị hash rò rỉ)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pill-row">
+      <span class="pill">🔑 Mật khẩu không lưu dạng văn bản rõ (plain text) — hệ thống mã hóa 1 chiều thành <b>hash value</b> (VD: 298cde70c32a57b8…)</span>
+    </div>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:8px;">Biện pháp phòng ngừa &amp; bảo vệ</h4>
+    <table class="spec">
+      <tr><th>Biện pháp</th><th>Chức năng</th></tr>
+      <tr><td>Firewall (Tường lửa)</td><td>Lọc luồng dữ liệu tại điểm kiểm soát cố định, chặn thông điệp đến/đi từ nguồn không đáng tin cậy</td></tr>
+      <tr><td>Proxy Server</td><td>Làm cầu nối trung gian giữa client và server, bảo vệ client khỏi hành vi độc hại từ phía server</td></tr>
+      <tr><td>Network Auditing Software</td><td>Giám sát lưu lượng, theo dõi nguồn gốc dữ liệu, phát hiện dấu hiệu bất thường để xử lý kịp thời</td></tr>
+      <tr><td>Antivirus</td><td>Nhận diện, phát hiện và loại bỏ các loại virus đã được ghi nhận</td></tr>
+      <tr><td>Encryption (Mã hóa)</td><td>Giải pháp bảo mật tối hậu — đảm bảo dữ liệu không thể đọc được kể cả khi bị đánh cắp trên đường truyền</td></tr>
+    </table>
+
+    <div class="example-box"><b>⭐ Ghi nhớ:</b> hành vi phá hoại mạng luôn nhắm tới 1 trong 2 mục đích chính — <b>làm gián đoạn hoạt động hệ thống</b> (VD: DoS) hoặc <b>đánh cắp thông tin</b> (VD: Sniffing, Spyware, Password Attack). Mật khẩu truyền thống dễ lộ trên môi trường mạng không an toàn, nên mã hóa (Encryption) mới là lớp bảo vệ triệt để nhất.</div>
+  </div>
+
+  <!-- P8. HE DIEU HANH CHUYEN SAU -->
+  <div class="topic k1" id="he-dieu-hanh-chuyen-sau">
+    <div class="topic-head">
+      <div class="topic-num">8</div>
+      <div><h3>Hệ điều hành — Vai trò &amp; kiến trúc chuyên sâu</h3><div class="sub">Đi sâu vào Kernel, quản lý tệp, driver, bộ nhớ và bảo mật tài khoản</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Kernel (Nhân hệ điều hành) &amp; Quản lý tệp tin</h4>
+        <ul>
+          <li><b>Kernel</b> — phần lõi nội bộ, chứa các thành phần điều phối những chức năng cơ bản nhất của máy tính</li>
+          <li><b>Chương trình quản lý tệp tin</b> (thuộc Kernel) — ghi nhận &amp; điều phối vị trí lưu trữ tệp trên thiết bị lưu trữ thứ cấp, kiểm soát quyền truy cập của người dùng và quản lý vùng nhớ trống</li>
+          <li><b>Hệ thống tệp phân cấp</b> — tổ chức dữ liệu theo dạng thư mục lồng thư mục, định vị chính xác bằng đường dẫn (path)</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Quản lý bộ nhớ &amp; Device Driver</h4>
+        <ul>
+          <li><b>Quản lý bộ nhớ</b> — Kernel điều phối RAM cho nhiều tiến trình cùng lúc, dùng kỹ thuật <b>phân trang (paging)</b> và trao đổi dữ liệu với ổ cứng để tạo ra <b>bộ nhớ ảo (virtual memory)</b>, mở rộng vùng hoạt động cho ứng dụng</li>
+          <li><b>Device Driver (Trình điều khiển thiết bị)</b> — phần mềm trung gian giúp hệ điều hành và ứng dụng giao tiếp trực tiếp với phần cứng vật lý (máy in, tai nghe Bluetooth...)</li>
+        </ul>
+      </div>
+    </div>
+
+    <table class="spec">
+      <tr><th>Windows</th><th>Linux</th></tr>
+      <tr><td>Dùng dấu <code>\</code>, không phân biệt chữ hoa/thường</td><td>Dùng dấu <code>/</code>, phân biệt chữ hoa/thường nghiêm ngặt</td></tr>
+      <tr><td>Thư mục gốc bắt đầu bằng chữ cái ổ đĩa (VD: <code>C:\</code>)</td><td>Thư mục gốc bắt đầu bằng <code>/</code></td></tr>
+      <tr><td>Thư mục cá nhân đặt tại <code>C:\Users</code></td><td>Thư mục cá nhân đặt tại <code>/home/</code></td></tr>
+    </table>
+
+    <div class="grid2" style="margin-top:6px;">
+      <div class="info-card">
+        <h4>Giao diện người dùng</h4>
+        <ul>
+          <li><b>CLI (Command Line Interface)</b> — dùng thông điệp dạng văn bản để truyền đạt thông tin và nhận lệnh qua bàn phím</li>
+          <li><b>GUI (Graphical User Interface)</b> — phổ biến trên OS hiện đại, thao tác trực quan bằng chuột/bàn phím/màn hình cảm ứng</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Bảo mật &amp; quản lý tài khoản người dùng</h4>
+        <ul>
+          <li>OS lưu trữ thông tin tài khoản (tên đăng nhập, mật khẩu, quyền hạn) để xác thực và kiểm soát quyền hạn sau mỗi lần đăng nhập</li>
+          <li><b>Tài khoản Admin/Root</b> — đặc quyền cao nhất, có thể thay đổi cấu hình hệ thống sâu, cài đặt/chỉnh sửa phần mềm quan trọng và bảo trì — vượt xa quyền hạn tài khoản thông thường</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="example-box"><b>⭐ Ghi nhớ:</b> Kernel là "bộ não" ẩn sau hệ điều hành — mọi thứ người dùng thấy (giao diện CLI/GUI) chỉ là lớp vỏ bên ngoài giúp con người ra lệnh cho Kernel dễ dàng hơn.</div>
+  </div>
+
+  <!-- P9. NGON NGU LAP TRINH -->
+  <div class="topic k5" id="ngon-ngu-lap-trinh">
+    <div class="topic-head">
+      <div class="topic-num">9</div>
+      <div><h3>Ngôn ngữ lập trình &amp; Bộ xử lý ngôn ngữ</h3><div class="sub">Từ ngôn ngữ máy đến ngôn ngữ cấp cao, và cách máy tính "hiểu" mã nguồn</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Sự tiến hóa của ngôn ngữ lập trình</h4>
+        <p>Từ các <b>ngôn ngữ máy</b> nguyên thủy (chuỗi ký tự 0 và 1, phụ thuộc vào cấu trúc phần cứng của từng máy) đến các <b>ngôn ngữ lập trình cấp cao</b> (Java, C++, Python...) không phụ thuộc vào cấu trúc máy tính, giúp con người viết mã dễ dàng hơn nhiều.</p>
+        <p><b>Thuật toán (Algorithm)</b> — tập hợp các chỉ dẫn để giải quyết vấn đề theo từng bước; thường được máy tính xử lý nhưng con người cũng có thể làm theo.</p>
+      </div>
+      <div class="info-card">
+        <h4>Bộ xử lý ngôn ngữ</h4>
+        <p>Mã lệnh viết bằng ngôn ngữ cấp cao gọi là <b>mã nguồn (source code)</b> — máy tính không thể thực thi trực tiếp, cần <b>bộ xử lý ngôn ngữ</b> chuyên dụng để dịch sang mã máy trước khi chạy được.</p>
+      </div>
+    </div>
+
+    <table class="spec">
+      <tr><th>Tiêu chí</th><th>Compiler (Trình biên dịch)</th><th>Interpreter (Trình thông dịch)</th></tr>
+      <tr><td>Cách xử lý</td><td>Quét <b>toàn bộ</b> mã nguồn, kiểm tra và chỉ ra mọi lỗi phát hiện được</td><td>Dịch &amp; thực thi <b>trực tiếp từng dòng một</b>, không tạo mã trung gian</td></tr>
+      <tr><td>Khi gặp lỗi</td><td>Phải sửa hết lỗi trước khi quá trình biên dịch có thể tiếp tục</td><td>Dừng thực thi ngay tại dòng lỗi, cần sửa để chạy tiếp các dòng sau</td></tr>
+      <tr><td>Kết quả</td><td>Chuyển toàn bộ mã nguồn sang mã đối tượng (object code)/mã máy trước khi chạy</td><td>Không sinh ra tệp mã máy độc lập</td></tr>
+      <tr><td>Ngôn ngữ áp dụng</td><td>C, C++, C#, Java</td><td>Ngôn ngữ kịch bản: Perl, Python</td></tr>
+    </table>
+
+    <div class="example-box"><b>⭐ Ghi nhớ:</b> Compiler giống như dịch cả một cuốn sách rồi mới đưa cho người đọc (chậm hơn nhưng chạy nhanh sau đó); Interpreter giống như dịch từng câu ngay khi đọc (chạy được ngay nhưng dừng lại nếu gặp câu lỗi).</div>
+  </div>
+
+  <!-- P10. PHAN LOAI PHAN MEM -->
+  <div class="topic k2" id="phan-loai-phan-mem">
+    <div class="topic-head">
+      <div class="topic-num">10</div>
+      <div><h3>Phân loại phần mềm máy tính</h3><div class="sub">Ba nhóm phần mềm ứng dụng theo mục đích, và ba kiến trúc giải pháp theo mức độ tùy biến</div></div>
+    </div>
+
+    <p style="font-size:.9rem;color:var(--ink-soft);">Phần mềm ứng dụng thường được chia thành 3 nhóm chính theo mục đích sử dụng:</p>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:4px;">1. Phần mềm nâng cao năng suất (Productivity)</h4>
+    <table class="spec">
+      <tr><th>Loại</th><th>Sử dụng</th><th>Ví dụ</th></tr>
+      <tr><td>Xử lý văn bản</td><td>Soạn thư từ, ghi chú, bản tin, báo cáo</td><td>Microsoft Word, Google Docs</td></tr>
+      <tr><td>Bảng tính</td><td>Tính toán tài chính/thống kê, biểu đồ, cơ sở dữ liệu đơn giản</td><td>Microsoft Excel, Google Sheets</td></tr>
+      <tr><td>Cơ sở dữ liệu</td><td>Lưu trữ, quản lý dữ liệu, xây dựng báo cáo</td><td>Microsoft Access, MySQL</td></tr>
+      <tr><td>Trình bày</td><td>Tạo slide thuyết trình có đồ họa, hiệu ứng</td><td>Microsoft PowerPoint, Google Slides</td></tr>
+      <tr><td>Đa phương tiện</td><td>Hiển thị âm thanh, video, hình ảnh</td><td>VLC Player, Real Player</td></tr>
+      <tr><td>Quản lý thông tin cá nhân</td><td>Quản lý lịch trình, nhiệm vụ, ghi chú, lời nhắc</td><td>Microsoft Outlook, Google Calendar</td></tr>
+    </table>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;">2. Phần mềm hợp tác (Collaboration)</h4>
+    <table class="spec">
+      <tr><th>Loại</th><th>Sử dụng</th><th>Ví dụ</th></tr>
+      <tr><td>Môi trường làm việc trực tuyến</td><td>Vận hành dịch vụ/ứng dụng trên nền tảng đám mây</td><td>Office Online, Microsoft SharePoint</td></tr>
+      <tr><td>Lưu trữ tài liệu</td><td>Lưu trữ tệp riêng tư hoặc chia sẻ qua đám mây</td><td>Microsoft OneDrive, Google Drive, Dropbox</td></tr>
+      <tr><td>Hội nghị trực tuyến</td><td>Gọi video giữa hai địa điểm trở lên</td><td>AdobeConnect, GoToMeeting, WebEX</td></tr>
+      <tr><td>Nhắn tin tức thì</td><td>Giao tiếp thời gian thực bằng văn bản</td><td>Google Hangouts, Facebook Messenger</td></tr>
+      <tr><td>Email</td><td>Gửi và nhận thư điện tử</td><td>Microsoft Outlook, Gmail</td></tr>
+    </table>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;">3. Phần mềm chuyên dụng (Specialized)</h4>
+    <table class="spec">
+      <tr><th>Loại</th><th>Sử dụng</th><th>Ví dụ</th></tr>
+      <tr><td>Thiết kế với sự hỗ trợ của máy tính (CAD)</td><td>Bản vẽ kỹ thuật, hình ảnh 3D của tòa nhà/sản phẩm</td><td>AutoCAD</td></tr>
+      <tr><td>Thiết kế đồ họa</td><td>Tạo &amp; chỉnh sửa hình ảnh, tác phẩm nghệ thuật</td><td>Adobe Photoshop</td></tr>
+      <tr><td>Y tế/Y khoa</td><td>Lưu trữ hồ sơ bệnh nhân, lịch hẹn khám</td><td>MedClarity, Kareo</td></tr>
+      <tr><td>Khoa học</td><td>Quản lý quy trình nghiên cứu khoa học</td><td>LabVIEW, MATLAB</td></tr>
+      <tr><td>Tài chính</td><td>Theo dõi, quản lý thông tin tài chính</td><td>Quicken, TurboTax</td></tr>
+      <tr><td>Trò chơi điện tử &amp; Giải trí</td><td>Giải trí cho người dùng cá nhân/nhóm khán giả</td><td>World of Warcraft, Candy Crush, Spotify, Netflix</td></tr>
+    </table>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:22px;">Kiến trúc giải pháp phần mềm — theo mức độ tùy biến</h4>
+    <table class="spec">
+      <tr><th>Tiêu chí</th><th>Thiết kế riêng (Bespoke)</th><th>Có sẵn (Off-the-shelf)</th><th>Hỗn hợp (Hybrid)</th></tr>
+      <tr><td>Kiểm soát</td><td>Chủ sở hữu giữ quyền kiểm soát</td><td>Do nhà cung cấp kiểm soát</td><td>Khả năng tùy chỉnh bị hạn chế</td></tr>
+      <tr><td>Khả năng tùy chỉnh</td><td>Thiết kế riêng theo đúng nhu cầu kinh doanh</td><td>Không tùy chỉnh, dùng ngay sau khi mua</td><td>Linh hoạt cao, thêm tính năng qua tùy biến</td></tr>
+      <tr><td>Chức năng</td><td>Đáp ứng mọi nhu cầu được nêu ra</td><td>Tùy thuộc tính năng có sẵn</td><td>Đáp ứng nhu cầu tùy mức độ tùy biến</td></tr>
+      <tr><td>Chi phí</td><td>Cao nhất</td><td>Thấp nhất</td><td>Ở giữa</td></tr>
+      <tr><td>Thời gian</td><td>Mất nhiều thời gian phát triển nhất</td><td>Dùng ngay sau khi mua/lắp đặt</td><td>Triển khai nhanh, tùy chỉnh thêm sau</td></tr>
+      <tr><td>Hỗ trợ</td><td>Được hỗ trợ nội bộ</td><td>Do nhà cung cấp/cộng đồng hỗ trợ</td><td>Nhà cung cấp hoặc hỗ trợ nội bộ</td></tr>
+    </table>
+
+    <div class="example-box"><b>⭐ Ghi nhớ:</b> Bespoke (thiết kế riêng) = đo ni đóng giày (đắt, lâu, vừa khít); Off-the-shelf (có sẵn) = mua đồ may sẵn (rẻ, nhanh, không vừa 100%); Hybrid = mua đồ may sẵn rồi chỉnh sửa lại cho vừa hơn.</div>
+  </div>
+
+</section>
+
+</div><!-- /part-page 2 -->
+
+<footer>
+  <div class="foot-card">
+    <h3>🎯 Ôn lại nhanh trước khi thi</h3>
+    <p>Máy tính trải qua 5 thế hệ · Phần cứng &amp; phần mềm cộng sinh · CPU = ALU + Control Unit + Registers · OS là cầu nối user–app–hardware · Mạng chia PAN/LAN/WAN với 4 kiểu topology · Internet = "mạng của các mạng" phân theo ISP Tier 1/2/3 · DNS đổi tên miền thành IP, ICANN điều phối toàn cầu · WWW chạy trên Internet nhờ HTTP + HTML · An ninh mạng cần cả phòng ngừa (Firewall, Antivirus) lẫn mã hóa dữ liệu.</p>
+    <div class="foot-grid">
+      <div onclick="setPart('1')">
+        <h4>👉 Phần 1 · Máy tính</h4>
+        <p>Lịch sử → Phần cứng → Kiến trúc CPU/RAM → Phần mềm → Hệ điều hành → Loại máy tính → Mạng (tổng quan) → Dữ liệu &amp; Cloud (IaaS/PaaS/SaaS).</p>
+      </div>
+      <div onclick="setPart('2')">
+        <h4>👉 Phần 2 · Mạng máy tính</h4>
+        <p>Phân loại &amp; topology → Thành phần mạng → Internet &amp; kiến trúc ISP → Địa chỉ IP &amp; DNS → Giao thức &amp; dịch vụ → World Wide Web → An ninh mạng → Hệ điều hành chuyên sâu → Ngôn ngữ lập trình → Phân loại phần mềm.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" class="back-top" id="backTop">↑</a>
+
+<script>
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => { backTop.classList.toggle('show', window.scrollY > 500); });
+
+  // ---- Toggle giữa các Phần ----
+  // Để thêm Phần 3 sau này: (1) thêm 1 <div class="part-page" data-part="3">...</div>,
+  // (2) thêm 1 <div class="nav-links" data-part="3">...</div> trong <nav>,
+  // (3) thêm 1 <button data-part="3">Phần 3 · ...</button> vào #partSwitch (bỏ nút "+ Phần 3 (sắp có)").
+  function setPart(n){
+    document.querySelectorAll('.part-page').forEach(p => {
+      p.classList.toggle('active-page', p.dataset.part === String(n));
+    });
+    document.querySelectorAll('#partSwitch button[data-part]').forEach(b => {
+      b.classList.toggle('active', b.dataset.part === String(n));
+    });
+    document.querySelectorAll('.nav-links[data-part]').forEach(g => {
+      g.classList.toggle('active-group', g.dataset.part === String(n));
+    });
+    history.replaceState(null, '', '#phan' + n);
+    window.scrollTo({ top: 0 });
+  }
+  document.querySelectorAll('#partSwitch button[data-part]').forEach(b => {
+    b.addEventListener('click', () => setPart(b.dataset.part));
+  });
+  const startPart = (location.hash === '#phan2') ? '2' : '1';
+  setPart(startPart);
+
+  const links = document.querySelectorAll('.nav-links a');
+  const topics = document.querySelectorAll('.topic, #mindmap, #mindmap2');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const id = entry.target.id;
+        links.forEach(l => {
+          const active = l.getAttribute('href') === '#' + id;
+          l.style.background = active ? '#22241d' : '';
+          l.style.color = active ? '#fff' : '';
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+  topics.forEach(t => obs.observe(t));
+</script>
+
+</body>
+</html>
