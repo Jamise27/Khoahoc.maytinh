@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khoa học máy tính — Phần 1: Tổng quan máy tính · Phần 2: Mạng máy tính · Phần 3: Lập trình ảnh số</title>
+<title>Khoa học máy tính — Phần 1: Tổng quan máy tính · Phần 2: Mạng máy tính · Phần 3: Lập trình ảnh số · Phần 4: CSDL &amp; Quản lý dự án</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -177,6 +177,7 @@
       <button type="button" data-part="1">Phần 1 · Máy tính</button>
       <button type="button" data-part="2">Phần 2 · Mạng</button>
       <button type="button" data-part="3">Phần 3 · Lập trình ảnh</button>
+      <button type="button" data-part="4">Phần 4 · CSDL &amp; Dự án</button>
     </div>
 
     <div class="nav-links" data-part="1">
@@ -215,6 +216,18 @@
       <a href="#ghep-anh">Ghép ảnh &amp; Green Screen</a>
       <a href="#du-lieu-bang">Dữ liệu bảng</a>
       <a href="#tim-kiem-dem">Tìm kiếm &amp; đếm dữ liệu</a>
+      <a href="#loi-cu-phap">Lỗi cú pháp thường gặp</a>
+    </div>
+
+    <div class="nav-links" data-part="4">
+      <a href="#mindmap4">Bản đồ P4</a>
+      <a href="#csdl-dbms">Dữ liệu &amp; DBMS</a>
+      <a href="#mo-hinh-csdl">Mô hình CSDL</a>
+      <a href="#phep-toan-csdl">Phép toán CSDL (SQL)</a>
+      <a href="#sdlc">Vòng đời phần mềm</a>
+      <a href="#quan-ly-du-an">Quản lý dự án</a>
+      <a href="#dao-duc-ict">Đạo đức &amp; pháp lý ICT</a>
+      <a href="#an-ninh-rieng-tu">An ninh &amp; quyền riêng tư</a>
     </div>
   </div>
 </nav>
@@ -555,6 +568,14 @@ INPUT  → xử lý (CPU) → OUTPUT
 
     <div class="grid2">
       <div class="info-card">
+        <h4>Dữ liệu (Data) vs Thông tin (Information)</h4>
+        <ul>
+          <li><b>Dữ liệu</b> — các con số, ký tự, sự kiện <b>thô</b>, chưa qua xử lý, chưa có ngữ cảnh/ý nghĩa rõ ràng. VD: 15, 22, 30, 18</li>
+          <li><b>Thông tin</b> — dữ liệu đã được <b>xử lý, tổ chức, đặt vào ngữ cảnh</b> để trở nên có ý nghĩa và hữu ích cho người nhận. VD: "Điểm trung bình lớp 10A là 21,25 — cao hơn năm ngoái 3 điểm"</li>
+        </ul>
+        <p style="font-size:.82rem;">Điểm giống nhau: cả hai đều là "dữ kiện" được lưu trữ/xử lý bởi máy tính. Điểm khác nhau cốt lõi: <b>dữ liệu là nguyên liệu đầu vào, thông tin là kết quả đầu ra có giá trị sử dụng</b> sau khi qua xử lý (tính toán, sắp xếp, tổng hợp, diễn giải).</p>
+      </div>
+      <div class="info-card">
         <h4>Dữ liệu có cấu trúc vs phi cấu trúc</h4>
         <ul>
           <li><b>Có cấu trúc</b> — mã hóa gọn gàng, dễ phân tích. VD: bảng tên, email, số điện thoại</li>
@@ -562,14 +583,17 @@ INPUT  → xử lý (CPU) → OUTPUT
           <li><b>Big Data</b> — dữ liệu tích lũy cực nhanh, cần <b>làm sạch dữ liệu (data cleansing)</b> trước khi dùng để loại bản ghi trùng lặp, lỗi thời</li>
         </ul>
       </div>
-      <div class="info-card">
-        <h4>3 mô hình điện toán đám mây</h4>
-        <ul>
-          <li><b>IaaS</b> — thuê hạ tầng (server, mạng), tự quản lý OS trở lên. VD: AWS EC2</li>
-          <li><b>PaaS</b> — thuê nền tảng, chỉ cần viết code và triển khai. VD: Power Apps</li>
-          <li><b>SaaS</b> — dùng phần mềm trọn gói qua trình duyệt. VD: Gmail, Microsoft 365</li>
-        </ul>
-      </div>
+    </div>
+
+    <div class="example-box"><b>⭐ Ghi nhớ nhanh:</b> Dữ liệu → (xử lý/tổng hợp/diễn giải) → Thông tin. VD: "37, 38, 39, 40" là <b>dữ liệu</b> (nhiệt độ đo mỗi giờ); "Nhiệt độ đang tăng dần, có thể sốt" là <b>thông tin</b> (đã diễn giải, có ý nghĩa hành động).</div>
+
+    <div class="info-card">
+      <h4>3 mô hình điện toán đám mây</h4>
+      <ul>
+        <li><b>IaaS</b> — thuê hạ tầng (server, mạng), tự quản lý OS trở lên. VD: AWS EC2</li>
+        <li><b>PaaS</b> — thuê nền tảng, chỉ cần viết code và triển khai. VD: Power Apps</li>
+        <li><b>SaaS</b> — dùng phần mềm trọn gói qua trình duyệt. VD: Gmail, Microsoft 365</li>
+      </ul>
     </div>
 
     <div class="pill-row">
@@ -866,6 +890,8 @@ End system (máy của bạn)</pre>
     </table>
 
     <div class="example-box"><b>⭐ Dễ nhầm:</b> Internet và World Wide Web không phải là một — Internet là hạ tầng mạng toàn cầu (kết nối vật lý + giao thức), còn WWW chỉ là <u>một ứng dụng</u> chạy trên nền Internet đó (bên cạnh email, VoIP, streaming…).</div>
+
+    <div class="example-box blue"><b>🌐 Ứng dụng thực tế — Tạo trang web cá nhân:</b> để đưa 1 trang HTML lên WWW cho mọi người truy cập được, cần 3 thành phần: (1) <b>Tên miền (Domain)</b> — địa chỉ dễ nhớ đăng ký qua nhà cung cấp domain; (2) <b>Hosting/Web server</b> — nơi lưu trữ file HTML/CSS/JS, có thể dùng dịch vụ miễn phí như GitHub Pages hoặc thuê hosting; (3) <b>DNS</b> — trỏ tên miền tới đúng địa chỉ IP của hosting. Đây chính là ứng dụng trực tiếp của kiến thức Internet + WWW + DNS đã học ở trên vào việc tạo lập một trang web cá nhân thực tế.</div>
   </div>
 
   <!-- P7. AN NINH MANG -->
@@ -1087,32 +1113,34 @@ print(image);</pre>
   <div class="section-head">
     <span class="kicker">Mind map</span>
     <h2>Toàn cảnh Phần 3 trong 1 bức tranh</h2>
-    <p>8 nhánh kiến thức chính về lập trình xử lý ảnh &amp; dữ liệu bảng — bấm vào từng nhánh để đọc chi tiết bên dưới.</p>
+    <p>9 nhánh kiến thức chính về lập trình xử lý ảnh &amp; dữ liệu bảng — bấm vào từng nhánh để đọc chi tiết bên dưới.</p>
   </div>
 
   <div class="mindmap-wrap">
     <div class="mindmap" style="min-height:760px;">
       <svg viewBox="0 0 940 760" preserveAspectRatio="none">
-        <line x1="470" y1="380" x2="470" y2="91"  stroke="#f6c445" stroke-width="2.5" stroke-dasharray="5 5"/>
-        <line x1="470" y1="380" x2="729" y2="176" stroke="#e45f2b" stroke-width="2.5" stroke-dasharray="5 5"/>
-        <line x1="470" y1="380" x2="837" y2="380" stroke="#a0e548" stroke-width="2.5" stroke-dasharray="5 5"/>
-        <line x1="470" y1="380" x2="729" y2="584" stroke="#72fa93" stroke-width="2.5" stroke-dasharray="5 5"/>
-        <line x1="470" y1="380" x2="470" y2="669" stroke="#9ac1f0" stroke-width="2.5" stroke-dasharray="5 5"/>
-        <line x1="470" y1="380" x2="211" y2="584" stroke="#e45f2b" stroke-width="2.5" stroke-dasharray="5 5"/>
-        <line x1="470" y1="380" x2="103" y2="380" stroke="#a0e548" stroke-width="2.5" stroke-dasharray="5 5"/>
-        <line x1="470" y1="380" x2="211" y2="176" stroke="#f6c445" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="470" y2="84"  stroke="#f6c445" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="712" y2="153" stroke="#e45f2b" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="840" y2="329" stroke="#a0e548" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="796" y2="528" stroke="#72fa93" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="599" y2="659" stroke="#9ac1f0" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="341" y2="659" stroke="#e45f2b" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="144" y2="528" stroke="#a0e548" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="100" y2="329" stroke="#f6c445" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="228" y2="153" stroke="#9ac1f0" stroke-width="2.5" stroke-dasharray="5 5"/>
       </svg>
 
       <div class="mm-center">PHẦN 3<br><span style="font-weight:400;font-size:.7rem;opacity:.9;">Lập trình ảnh số &amp; bảng dữ liệu</span></div>
 
-      <a href="#anh-so-co-ban" class="mm-node" style="left:40.5%;top:7.5%;"><span class="num" style="background:#f6c445;">1</span><div class="title">Ảnh số &amp; nguyên tử hóa</div><div class="desc">Pixel, RGB, tọa độ (x,y), PNG</div></a>
-      <a href="#vong-lap-anh" class="mm-node" style="left:68.1%;top:18.6%;"><span class="num" style="background:#e45f2b;color:#fff;">2</span><div class="title">Vòng lặp xử lý ảnh</div><div class="desc">for(pixel:image), tăng/giảm sáng, đảo màu</div></a>
-      <a href="#bien-bieu-thuc" class="mm-node" style="left:79.5%;top:45.5%;"><span class="num" style="background:#a0e548;">3</span><div class="title">Biến &amp; biểu thức</div><div class="desc">Gán giá trị, kết hợp get/set</div></a>
-      <a href="#cau-truc-if" class="mm-node" style="left:68.1%;top:72.4%;"><span class="num" style="background:#72fa93;">4</span><div class="title">Câu lệnh If</div><div class="desc">Rẽ nhánh, ngưỡng màu, so sánh avg</div></a>
-      <a href="#grayscale" class="mm-node" style="left:40.5%;top:83.5%;"><span class="num" style="background:#9ac1f0;">5</span><div class="title">Ảnh xám &amp; tách kênh</div><div class="desc">avg=(R+G+B)/3, lịch sử ROYGBIV</div></a>
-      <a href="#ghep-anh" class="mm-node" style="left:12.9%;top:72.4%;"><span class="num" style="background:#e45f2b;color:#fff;">6</span><div class="title">Ghép ảnh &amp; Green Screen</div><div class="desc">Sao chép pixel theo tọa độ, xử lý theo vùng</div></a>
-      <a href="#du-lieu-bang" class="mm-node" style="left:1.5%;top:45.5%;"><span class="num" style="background:#a0e548;">7</span><div class="title">Dữ liệu bảng</div><div class="desc">SimpleTable, for(row:table), getField</div></a>
-      <a href="#tim-kiem-dem" class="mm-node" style="left:12.9%;top:18.6%;"><span class="num" style="background:#f6c445;">8</span><div class="title">Tìm kiếm &amp; đếm dữ liệu</div><div class="desc">startsWith/endsWith, &amp;&amp; || !, biến đếm</div></a>
+      <a href="#anh-so-co-ban" class="mm-node" style="left:40.5%;top:6.8%;"><span class="num" style="background:#f6c445;">1</span><div class="title">Ảnh số &amp; nguyên tử hóa</div><div class="desc">Pixel, RGB, tọa độ (x,y), PNG</div></a>
+      <a href="#vong-lap-anh" class="mm-node" style="left:66.2%;top:15.9%;"><span class="num" style="background:#e45f2b;color:#fff;">2</span><div class="title">Vòng lặp xử lý ảnh</div><div class="desc">for(pixel:image), tăng/giảm sáng, đảo màu</div></a>
+      <a href="#bien-bieu-thuc" class="mm-node" style="left:79.9%;top:39.0%;"><span class="num" style="background:#a0e548;">3</span><div class="title">Biến &amp; biểu thức</div><div class="desc">Gán giá trị, kết hợp get/set</div></a>
+      <a href="#cau-truc-if" class="mm-node" style="left:75.1%;top:65.2%;"><span class="num" style="background:#72fa93;">4</span><div class="title">Câu lệnh If</div><div class="desc">Rẽ nhánh, ngưỡng màu, so sánh avg</div></a>
+      <a href="#grayscale" class="mm-node" style="left:54.2%;top:82.4%;"><span class="num" style="background:#9ac1f0;">5</span><div class="title">Ảnh xám &amp; tách kênh</div><div class="desc">avg=(R+G+B)/3, lịch sử ROYGBIV</div></a>
+      <a href="#ghep-anh" class="mm-node" style="left:26.8%;top:82.4%;"><span class="num" style="background:#e45f2b;color:#fff;">6</span><div class="title">Ghép ảnh &amp; Green Screen</div><div class="desc">Sao chép pixel theo tọa độ, xử lý theo vùng</div></a>
+      <a href="#du-lieu-bang" class="mm-node" style="left:5.9%;top:65.3%;"><span class="num" style="background:#a0e548;">7</span><div class="title">Dữ liệu bảng</div><div class="desc">SimpleTable, for(row:table), getField</div></a>
+      <a href="#tim-kiem-dem" class="mm-node" style="left:1.1%;top:39.0%;"><span class="num" style="background:#f6c445;">8</span><div class="title">Tìm kiếm &amp; đếm dữ liệu</div><div class="desc">startsWith/endsWith, &amp;&amp; || !, biến đếm</div></a>
+      <a href="#loi-cu-phap" class="mm-node" style="left:14.8%;top:15.9%;"><span class="num" style="background:#9ac1f0;">9</span><div class="title">Lỗi cú pháp thường gặp</div><div class="desc">Thiếu dấu ;/{}, sai == vs =, debug nhanh</div></a>
     </div>
   </div>
 </section>
@@ -1222,10 +1250,17 @@ print(image);</pre>
         <p>Biến hoạt động như một <b>cách viết tắt</b>: ta gán một giá trị vào biến, sau đó dùng lại biến đó ở các dòng sau để lấy giá trị — tránh phải lặp lại giá trị nhiều lần. Mọi ngôn ngữ lập trình đều có khái niệm biến để lưu trữ &amp; lấy lại giá trị.</p>
       </div>
       <div class="info-card">
-        <h4>Biểu thức (Expression)</h4>
-        <p>Là sự kết hợp của giá trị, hằng số, biến, toán tử và hàm mà ngôn ngữ lập trình sẽ <b>tính toán ra một giá trị khác</b>. VD: thay vì viết số cố định <code>42</code>, ta có thể viết biểu thức <code>11 + 31</code> — máy tính sẽ tự tính ra 42 trước khi dùng.</p>
+        <h4>Khai báo biến &amp; in kết quả trong JavaScript</h4>
+        <p>JavaScript dùng <code>let</code>, <code>const</code> hoặc <code>var</code> để khai báo biến, và <code>console.log()</code> để in giá trị ra màn hình (tương đương <code>print()</code> dùng trong các ví dụ ảnh số):</p>
+        <pre class="code" style="margin-top:6px;">let diem = 8;              <span class="c-num">// khai báo + gán giá trị</span>
+const PI = 3.14;           <span class="c-num">// const: giá trị không đổi được sau khi gán</span>
+diem = diem + 1;           <span class="c-num">// gán lại giá trị mới cho biến</span>
+console.log(diem);         <span class="c-num">// in ra: 9</span></pre>
       </div>
     </div>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:10px;">Biểu thức (Expression)</h4>
+    <p style="font-size:.88rem;color:var(--ink-soft);">Là sự kết hợp của giá trị, hằng số, biến, toán tử và hàm mà ngôn ngữ lập trình sẽ <b>tính toán ra một giá trị khác</b>. VD: thay vì viết số cố định <code>42</code>, ta có thể viết biểu thức <code>11 + 31</code> — máy tính sẽ tự tính ra 42 trước khi dùng.</p>
 
     <h4 style="font-family:'Baloo 2',sans-serif;margin-top:10px;">Kết hợp get/set — rút gọn 2 dòng thành 1</h4>
     <pre class="code"><span class="c-num">// Cách viết dài (dùng biến trung gian "old"):</span>
@@ -1434,9 +1469,512 @@ print("count:", count);            <span class="c-num">// 3. in giá trị đế
     <div class="example-box"><b>⭐ Mẫu 3 bước kinh điển (ghi nhớ cho mọi bài đếm):</b> ① khởi tạo biến đếm = 0 <i>trước</i> vòng lặp → ② tăng biến đếm lên 1 <i>bên trong</i> câu lệnh if → ③ in biến đếm <i>sau khi</i> vòng lặp kết thúc.</div>
   </div>
 
+  <!-- 9. LOI CU PHAP -->
+  <div class="topic k4" id="loi-cu-phap">
+    <div class="topic-head">
+      <div class="topic-num">9</div>
+      <div><h3>Lỗi cú pháp thường gặp &amp; cách sửa</h3><div class="sub">Nhận diện nhanh các lỗi hay gặp khi mới lập trình với JavaScript/SimpleImage</div></div>
+    </div>
+
+    <p style="font-size:.9rem;color:var(--ink-soft);">Khi biên dịch/thông dịch gặp lỗi cú pháp, chương trình sẽ dừng và báo lỗi ngay tại dòng vi phạm cấu trúc ngôn ngữ. Dưới đây là các lỗi phổ biến nhất khi mới học lập trình xử lý ảnh:</p>
+
+    <table class="spec">
+      <tr><th>Lỗi thường gặp</th><th>Ví dụ sai</th><th>Cách sửa</th></tr>
+      <tr><td>Thiếu dấu chấm phẩy <code>;</code> cuối câu lệnh</td><td><code>pixel.setRed(255)</code></td><td><code>pixel.setRed(255);</code></td></tr>
+      <tr><td>Thiếu dấu ngoặc nhọn đóng <code>}</code></td><td><code>for (pixel: image) { pixel.setRed(0);</code></td><td>Đảm bảo mỗi <code>{</code> luôn có 1 <code>}</code> tương ứng</td></tr>
+      <tr><td>Thiếu dấu ngoặc đơn khi gọi hàm</td><td><code>pixel.getRed;</code></td><td><code>pixel.getRed();</code> — hàm luôn cần <code>()</code> dù không có tham số</td></tr>
+      <tr><td>Thiếu dấu ngoặc kép quanh chuỗi</td><td><code>image = new SimpleImage(flowers.jpg);</code></td><td><code>image = new SimpleImage("flowers.jpg");</code></td></tr>
+      <tr><td>Sai/thiếu dấu bằng khi so sánh</td><td><code>if (pixel.getRed() = 160)</code></td><td><code>if (pixel.getRed() == 160)</code> — 1 dấu <code>=</code> là gán giá trị, 2 dấu <code>==</code> là so sánh</td></tr>
+      <tr><td>Viết sai tên hàm (phân biệt hoa/thường)</td><td><code>pixel.SetRed(255);</code></td><td><code>pixel.setRed(255);</code> — JavaScript phân biệt chữ hoa/thường nghiêm ngặt</td></tr>
+      <tr><td>Quên khai báo biến trước khi dùng lần đầu</td><td><code>total = total + 1;</code> (khi total chưa từng được gán)</td><td><code>total = 0;</code> rồi mới <code>total = total + 1;</code></td></tr>
+    </table>
+
+    <div class="example-box"><b>⭐ Mẹo debug nhanh:</b> khi chương trình báo lỗi, hãy đọc kỹ <b>số dòng (line number)</b> báo lỗi — lỗi cú pháp gần như luôn nằm ngay tại dòng đó hoặc dòng ngay phía trên (thường do thiếu <code>;</code> hoặc <code>}</code> ở dòng trước khiến trình biên dịch "lạc hướng").</div>
+  </div>
+
 </section>
 
 </div><!-- /part-page 3 -->
+
+<div class="part-page" data-part="4">
+
+<div class="hero" id="phan4-top">
+  <div>
+    <span class="eyebrow" style="color:#1c4e80;background:#e7f1fc;">🗄️ Phần 4 · Tóm tắt &amp; ghi nhớ</span>
+    <h1>Cơ sở dữ liệu, <span class="accent">Quản lý dự án</span> &amp; Đạo đức ICT</h1>
+    <p>Tổng hợp: dữ liệu &amp; hệ quản trị CSDL, các mô hình lưu trữ hiện đại, 5 phép toán trên CSDL quan hệ (SQL), vòng đời phát triển phần mềm, quản lý dự án, đạo đức — bản quyền — pháp lý trong ICT, và an ninh/quyền riêng tư (bộ ba CIA).</p>
+    <div class="hero-tags">
+      <span class="tag t5">CSDL &amp; DBMS</span>
+      <span class="tag t3">SQL: Selection, Join...</span>
+      <span class="tag t1">SDLC &amp; Agile</span>
+      <span class="tag t4">Đạo đức &amp; Bản quyền</span>
+      <span class="tag t2">CIA: Bảo mật-Toàn vẹn-Sẵn sàng</span>
+    </div>
+  </div>
+  <div class="hero-code">
+    <div class="dots"><span></span><span></span><span></span></div>
+<pre style="margin:0;white-space:pre-wrap;">SELECT FirstName, LastName
+FROM Patient
+WHERE PatientID = '223344';
+
+-- Phép chiếu (cột) + Phép chọn (hàng)
+-- kết hợp để lấy đúng
+-- Họ & Tên của 1 bệnh nhân cụ thể</pre>
+  </div>
+</div>
+
+<section id="mindmap4" style="padding-top:10px;">
+  <div class="section-head">
+    <span class="kicker">Mind map</span>
+    <h2>Toàn cảnh Phần 4 trong 1 bức tranh</h2>
+    <p>7 nhánh kiến thức chính về CSDL, quy trình phần mềm và đạo đức ICT — bấm vào từng nhánh để đọc chi tiết bên dưới.</p>
+  </div>
+
+  <div class="mindmap-wrap">
+    <div class="mindmap" style="min-height:720px;">
+      <svg viewBox="0 0 940 760" preserveAspectRatio="none">
+        <line x1="470" y1="380" x2="470" y2="84"  stroke="#f6c445" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="764" y2="195" stroke="#e45f2b" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="837" y2="446" stroke="#a0e548" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="633" y2="647" stroke="#72fa93" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="307" y2="647" stroke="#9ac1f0" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="103" y2="446" stroke="#e45f2b" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <line x1="470" y1="380" x2="176" y2="195" stroke="#f6c445" stroke-width="2.5" stroke-dasharray="5 5"/>
+      </svg>
+
+      <div class="mm-center">PHẦN 4<br><span style="font-weight:400;font-size:.7rem;opacity:.9;">CSDL · Dự án · Đạo đức ICT</span></div>
+
+      <a href="#csdl-dbms" class="mm-node" style="left:40.0%;top:6.5%;"><span class="num" style="background:#f6c445;">1</span><div class="title">Dữ liệu &amp; DBMS</div><div class="desc">Datasheet, khóa chính/ngoại, 2 lớp DBMS</div></a>
+      <a href="#mo-hinh-csdl" class="mm-node" style="left:71.3%;top:21.2%;"><span class="num" style="background:#e45f2b;color:#fff;">2</span><div class="title">Mô hình CSDL</div><div class="desc">Flat-file, phân cấp, OO, NoSQL, Cloud, Data Lake</div></a>
+      <a href="#phep-toan-csdl" class="mm-node" style="left:79.0%;top:54.2%;"><span class="num" style="background:#a0e548;">3</span><div class="title">Phép toán CSDL (SQL)</div><div class="desc">Selection, Projection, Union, Product, Join</div></a>
+      <a href="#sdlc" class="mm-node" style="left:57.4%;top:80.6%;"><span class="num" style="background:#72fa93;">4</span><div class="title">Vòng đời phần mềm</div><div class="desc">Yêu cầu → Thiết kế → Triển khai → Test → Bảo trì</div></a>
+      <a href="#quan-ly-du-an" class="mm-node" style="left:22.6%;top:80.6%;"><span class="num" style="background:#9ac1f0;">5</span><div class="title">Quản lý dự án</div><div class="desc">4 giai đoạn PM, rủi ro, Agile/Scrum/XP</div></a>
+      <a href="#dao-duc-ict" class="mm-node" style="left:1.0%;top:54.2%;"><span class="num" style="background:#e45f2b;color:#fff;">6</span><div class="title">Đạo đức &amp; pháp lý ICT</div><div class="desc">4 hướng đạo đức, 10 điều răn, bản quyền phần mềm</div></a>
+      <a href="#an-ninh-rieng-tu" class="mm-node" style="left:8.7%;top:21.2%;"><span class="num" style="background:#f6c445;">7</span><div class="title">An ninh &amp; quyền riêng tư</div><div class="desc">Bộ ba CIA, AUP, mật khẩu, phishing</div></a>
+    </div>
+  </div>
+</section>
+
+<section id="chi-tiet-4" style="padding-top:6px;">
+
+  <!-- 1. DU LIEU & DBMS -->
+  <div class="topic k1" id="csdl-dbms">
+    <div class="topic-head">
+      <div class="topic-num">1</div>
+      <div><h3>Dữ liệu, Cơ sở dữ liệu &amp; Hệ quản trị CSDL (DBMS)</h3><div class="sub">Từ dữ liệu thô đến hệ thống lưu trữ có tổ chức</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Dữ liệu &amp; Quản trị dữ liệu</h4>
+        <ul>
+          <li><b>Dữ liệu (Data)</b> — tập hợp thông tin được lưu trữ để xử lý và phân tích; tồn tại dưới nhiều dạng: văn bản, số liệu, hình ảnh, âm thanh, video</li>
+          <li>Trong thời đại số, dữ liệu có khối lượng cực lớn và mang giá trị kinh doanh quan trọng</li>
+          <li><b>Quản trị dữ liệu (Data management)</b> — quá trình thu thập, lưu trữ, quản lý và khai thác dữ liệu hiệu quả, biến dữ liệu thô thành thông tin hữu ích phục vụ ra quyết định</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Cơ sở dữ liệu (Database)</h4>
+        <ul>
+          <li>Là tập hợp dữ liệu <b>có cấu trúc</b>, được tổ chức thành các bảng</li>
+          <li>Các bảng có thể liên kết với nhau thông qua <b>khóa chính</b> và <b>khóa ngoại</b></li>
+          <li>Ví dụ: hệ thống dữ liệu sinh viên, dữ liệu khách hàng</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:14px;">Cấu trúc bảng dữ liệu (Datasheet)</h4>
+    <table class="spec">
+      <tr><th>Thành phần</th><th>Vai trò</th></tr>
+      <tr><td>Trường (Field / Cột)</td><td>Đại diện cho một thuộc tính cụ thể của đối tượng (VD: FirstName, LastName, Age)</td></tr>
+      <tr><td>Bản ghi (Record / Hàng)</td><td>Tập hợp thông tin thuộc về một đối tượng duy nhất (VD: 1 hàng = 1 nhân viên)</td></tr>
+      <tr><td>Khóa chính (Primary Key)</td><td>Định danh <b>duy nhất</b> cho mỗi bản ghi, không cho phép trùng lặp hoàn toàn (VD: Mã nhân viên)</td></tr>
+      <tr><td>Khóa ngoại (Foreign Key)</td><td>Khóa chính của bảng này được đưa vào bảng khác để tạo liên kết — "sợi dây" kết nối dữ liệu giữa các bảng</td></tr>
+      <tr><td>Khóa phụ (Secondary Key)</td><td>Các trường dữ liệu còn lại trong bảng (không phải khóa chính)</td></tr>
+    </table>
+
+    <div class="grid2" style="margin-top:6px;">
+      <div class="info-card">
+        <h4>Hệ quản trị CSDL (DBMS) — 2 lớp</h4>
+        <ul>
+          <li><b>Lớp ứng dụng (Application Layer)</b> — cầu nối giao tiếp với người dùng cuối (giao diện web, dịch vụ máy chủ), tiếp nhận yêu cầu nhưng <b>không trực tiếp thao tác dữ liệu</b></li>
+          <li><b>Lớp quản lý CSDL (DBMS Layer)</b> — công cụ thực thi thực sự: thêm, xóa, sửa, tìm kiếm dữ liệu theo yêu cầu</li>
+        </ul>
+        <p>Cơ chế: người dùng gửi <b>truy vấn (query)</b> viết bằng SQL → DBMS tiếp nhận, xử lý → trả kết quả dưới dạng 1 bảng.</p>
+      </div>
+      <div class="info-card">
+        <h4>Danh mục kiểu dữ liệu cơ bản</h4>
+        <ul>
+          <li><b>Số nguyên (Integer)</b> — VD: 4, 27, 65535</li>
+          <li><b>Số thực (Float)</b> — có dấu thập phân, VD: 4.2, 27.4</li>
+          <li><b>Ký tự (Character)</b> — 1 ký tự đơn, VD: a, F, 3, #</li>
+          <li><b>Chuỗi ký tự (String)</b> — VD: "abc", "def456"</li>
+          <li><b>Boolean</b> — true hoặc false</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:14px;">CSDL tạo giá trị cho doanh nghiệp như thế nào?</h4>
+    <div class="pill-row">
+      <span class="pill">🔗 Tích hợp dữ liệu toàn doanh nghiệp — dùng chung 1 nguồn cho nhiều bộ phận</span>
+      <span class="pill">📊 Hỗ trợ ra quyết định — chuyển dữ liệu thô thành thông tin giá trị</span>
+      <span class="pill">🌐 Nền tảng cho Web/Thương mại điện tử — mô hình Client-Server</span>
+      <span class="pill">♻️ Giảm trùng lặp &amp; lãng phí dữ liệu</span>
+      <span class="pill">✅ Tăng tính nhất quán giữa các phòng ban</span>
+    </div>
+
+    <div class="example-box"><b>⭐ Ghi nhớ:</b> khác với tệp tin phẳng (flat file) mang tính 1 chiều, CSDL cho phép nhiều bộ phận cùng khai thác 1 nguồn dữ liệu chuẩn hóa duy nhất — đây chính là lý do CSDL quan trọng hơn hẳn việc chỉ lưu nhiều tệp Excel/Word rời rạc.</div>
+  </div>
+
+  <!-- 2. MO HINH CSDL -->
+  <div class="topic k2" id="mo-hinh-csdl">
+    <div class="topic-head">
+      <div class="topic-num">2</div>
+      <div><h3>Các mô hình lưu trữ dữ liệu</h3><div class="sub">Từ tệp phẳng đơn giản đến NoSQL &amp; dữ liệu phân tán hiện đại</div></div>
+    </div>
+
+    <table class="spec">
+      <tr><th>Mô hình</th><th>Đặc điểm chính</th></tr>
+      <tr><td><b>Tệp tin phẳng (Flat-file)</b></td><td>Lưu trong văn bản thuần túy, mỗi dòng = 1 bản ghi, các trường phân tách bằng dấu cách/phẩy. Chỉ có 1 bảng duy nhất → không liên kết được → dữ liệu dễ <b>trùng lặp &amp; phân mảnh</b> giữa các phòng ban</td></tr>
+      <tr><td><b>CSDL đa chiều (Multidimensional)</b></td><td>Cho phép truy cập thông tin từ nhiều góc nhìn khác nhau nhờ các liên kết nội bộ giữa dữ liệu</td></tr>
+      <tr><td><b>CSDL phân cấp (Hierarchical)</b></td><td>Một trong những mô hình lâu đời nhất — dữ liệu tổ chức theo <b>cấu trúc cây</b> (giống sơ đồ tổ chức), mỗi bản ghi có 1 "cha", quyền truy cập giới hạn theo đường dẫn trong cây</td></tr>
+      <tr><td><b>CSDL quan hệ (Relational)</b></td><td>Tập hợp các bảng có mối quan hệ chặt chẽ qua khóa chính/khóa ngoại — mô hình phổ biến nhất hiện nay</td></tr>
+      <tr><td><b>CSDL hướng đối tượng (Object-Oriented)</b></td><td>Lưu trữ dữ liệu phức tạp trực tiếp dưới dạng <b>đối tượng</b> (gồm dữ liệu + phương thức xử lý), không cần quan hệ giữa các bảng</td></tr>
+    </table>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:14px;">NoSQL — 4 mô hình lưu trữ linh hoạt</h4>
+    <div class="grid2">
+      <div class="info-card">
+        <ul>
+          <li><b>Khóa - Giá trị (Key-Value)</b> — lưu dạng cặp đơn giản khóa/giá trị</li>
+          <li><b>Dạng tài liệu (Document)</b> — mỗi khóa gắn với 1 "tài liệu" (JSON/BSON) chứa nhiều cặp khóa-giá trị lồng nhau</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <ul>
+          <li><b>Cột rộng (Wide-Column)</b> — lưu theo cột thay vì theo hàng, tối ưu cho tập dữ liệu cực lớn</li>
+          <li><b>Đồ thị (Graph)</b> — tối ưu cho dữ liệu có liên kết chặt chẽ, phức tạp (VD: kết nối bạn bè mạng xã hội)</li>
+        </ul>
+      </div>
+    </div>
+    <p style="font-size:.87rem;color:var(--ink-soft);">Đặc điểm chung của NoSQL: <b>Schema-less</b> (không bị gò bó bởi sơ đồ bảng cố định như CSDL quan hệ) và tối ưu <b>mở rộng hàng ngang (horizontal scaling)</b> trên nhiều máy chủ — lựa chọn lý tưởng cho Big Data, mạng xã hội.</p>
+
+    <div class="grid2" style="margin-top:6px;">
+      <div class="info-card">
+        <h4>CSDL Đám mây (Cloud)</h4>
+        <p>Được tối ưu hóa để hoạt động trong môi trường đám mây — tăng khả năng mở rộng tài nguyên theo nhu cầu, khả dụng cao ngay cả khi mất điện cục bộ, hỗ trợ triển khai SaaS.</p>
+      </div>
+      <div class="info-card">
+        <h4>Hồ dữ liệu (Data Lake)</h4>
+        <p>Hệ thống lưu trữ toàn bộ dữ liệu doanh nghiệp ở <b>định dạng thô</b> — bao gồm cả dữ liệu có cấu trúc (bảng) và phi cấu trúc (âm thanh, video).</p>
+      </div>
+    </div>
+
+    <div class="example-box"><b>⭐ CSDL Phân tán (Distributed):</b> dữ liệu nằm trên nhiều máy chủ khác nhau nhưng liên kết qua mạng để tạo thành 1 CSDL logic duy nhất. VD: công ty đa quốc gia lưu hồ sơ nhân viên tại từng văn phòng địa phương, nhưng vẫn liên kết được qua mạng thành 1 hệ thống chung.</div>
+  </div>
+
+  <!-- 3. PHEP TOAN CSDL -->
+  <div class="topic k3" id="phep-toan-csdl">
+    <div class="topic-head">
+      <div class="topic-num">3</div>
+      <div><h3>Các phép toán trên CSDL quan hệ (SQL)</h3><div class="sub">5 phép toán nền tảng để truy vấn và kết hợp dữ liệu</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>1. Phép chọn (Selection)</h4>
+        <p>Hoạt động theo <b>chiều ngang (hàng)</b> — kiểm tra điều kiện trên từng hàng, hàng nào đáp ứng tiêu chí (dùng toán tử so sánh hoặc <code>AND</code>/<code>OR</code>) sẽ được trích xuất.</p>
+        <pre class="code">SELECT * FROM Patient
+WHERE PatientID = '223344';</pre>
+        <p style="font-size:.82rem;color:var(--ink-soft);"><code>*</code> lấy tất cả các cột; <code>WHERE</code> là bộ lọc điều kiện chọn đúng hàng.</p>
+      </div>
+      <div class="info-card">
+        <h4>2. Phép chiếu (Projection)</h4>
+        <p>Trái ngược với Selection — hoạt động theo <b>chiều dọc (cột)</b>, trích xuất một số cột cụ thể để tạo bảng kết quả gọn hơn.</p>
+        <pre class="code">SELECT FirstName, LastName
+FROM Patient;</pre>
+        <p style="font-size:.82rem;color:var(--ink-soft);">Chỉ lấy 2 cột Họ và Tên, bỏ qua các cột khác (Tuổi, Địa chỉ...).</p>
+      </div>
+    </div>
+
+    <div class="example-box blue"><b>💡 Kết hợp Selection + Projection:</b> <code>SELECT FirstName, LastName FROM Patient WHERE PatientID='223344'</code> → vừa chỉ lấy 2 cột Họ/Tên (chiếu), vừa chỉ lấy đúng 1 bệnh nhân có mã 223344 (chọn).</div>
+
+    <div class="grid2" style="margin-top:10px;">
+      <div class="info-card">
+        <h4>3. Phép hợp (Union)</h4>
+        <p>Ghép nối 2 bảng <b>có cùng số cột và cùng kiểu dữ liệu mỗi cột</b> thành 1 bảng kết quả duy nhất. Tên cột kết quả được lấy theo bảng đứng <b>trước</b> trong câu lệnh UNION.</p>
+        <pre class="code">SELECT PatientID, LastName FROM Patient
+UNION
+SELECT NurseID, LastName FROM Nurse;</pre>
+      </div>
+      <div class="info-card">
+        <h4>4. Phép tích Descartes (Product / CROSS JOIN)</h4>
+        <p>Kết hợp <b>tất cả</b> bản ghi của bảng 1 với <b>tất cả</b> bản ghi của bảng 2. Nếu bảng 1 có 100 hàng, bảng 2 có 500 hàng → kết quả = <b>100 × 500 = 50.000 hàng</b>!</p>
+        <pre class="code">SELECT * FROM Patient
+CROSS JOIN Nurse;</pre>
+        <p style="font-size:.82rem;color:var(--ink-soft);">⚠️ Cẩn thận: có thể tạo ra tập dữ liệu cực lớn nếu không lọc thêm.</p>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:14px;">5. Phép nối (Join)</h4>
+    <p style="font-size:.88rem;color:var(--ink-soft);">Cũng kết hợp 2 bảng như Product, nhưng <b>chỉ giữ lại</b> các hàng có thuộc tính khớp nhau giữa 2 bảng (dựa trên điều kiện liên kết) — khác với Product giữ toàn bộ tổ hợp không điều kiện.</p>
+    <pre class="code">SELECT Shifts.WingSegment, Shifts.Shift, NurseName.LastName
+FROM Shifts, NurseName
+WHERE Shifts.NurseID = NurseName.NurseID;</pre>
+    <p style="font-size:.82rem;color:var(--ink-soft);">Khi dùng nhiều bảng, tên cột được viết dạng <code>TênBảng.TênCột</code> để tránh nhầm lẫn khi 2 bảng có cột trùng tên.</p>
+
+    <table class="spec" style="margin-top:14px;">
+      <tr><th>Phép toán</th><th>Chiều xử lý</th><th>Kết quả</th></tr>
+      <tr><td>Selection</td><td>Ngang (hàng)</td><td>Các hàng thỏa điều kiện</td></tr>
+      <tr><td>Projection</td><td>Dọc (cột)</td><td>Các cột được chỉ định</td></tr>
+      <tr><td>Union</td><td>Ghép bảng</td><td>Hợp 2 bảng cùng cấu trúc</td></tr>
+      <tr><td>Product (CROSS JOIN)</td><td>Ghép bảng</td><td>Mọi tổ hợp hàng (n1 × n2)</td></tr>
+      <tr><td>Join</td><td>Ghép bảng có điều kiện</td><td>Chỉ hàng khớp điều kiện liên kết</td></tr>
+      <tr><td>Difference</td><td>So sánh 2 bảng</td><td>Bản ghi có ở bảng này, không có ở bảng khác</td></tr>
+    </table>
+
+    <div class="example-box"><b>⭐ Dễ nhầm nhất:</b> Product/CROSS JOIN giữ <u>tất cả</u> tổ hợp (không điều kiện) trong khi Join chỉ giữ tổ hợp <u>khớp điều kiện</u> — Join gần như luôn là lựa chọn đúng khi cần "kết hợp dữ liệu có liên quan", còn Product hiếm khi dùng trực tiếp vì dễ tạo dữ liệu khổng lồ không mong muốn.</div>
+  </div>
+
+  <!-- 4. SDLC -->
+  <div class="topic k4" id="sdlc">
+    <div class="topic-head">
+      <div class="topic-num">4</div>
+      <div><h3>Vòng đời phát triển phần mềm (SDLC)</h3><div class="sub">5 giai đoạn từ ý tưởng đến bảo trì hệ thống</div></div>
+    </div>
+
+    <table class="spec">
+      <tr><th>Giai đoạn</th><th>Trọng tâm</th></tr>
+      <tr><td><b>1. Phân tích yêu cầu</b> (Requirements Analysis)</td><td>Xác định vấn đề cần giải quyết — hệ thống <b>nên làm gì</b> ("WHAT"). Thu thập yêu cầu từ stakeholders → tài liệu <b>SRS</b> (System Requirements Specification, theo chuẩn IEEE)</td></tr>
+      <tr><td><b>2. Thiết kế hệ thống</b> (System Design)</td><td>Quyết định hệ thống <b>làm điều đó bằng cách nào</b> ("HOW") — chuyển yêu cầu thành kiến trúc, cấu trúc dữ liệu, giao diện chi tiết</td></tr>
+      <tr><td><b>3. Triển khai &amp; tích hợp</b> (Implementation)</td><td>Hiện thực hóa thiết kế thành hệ thống thật: viết mã nguồn, xây CSDL, tạo tệp dữ liệu</td></tr>
+      <tr><td><b>4. Kiểm thử</b> (Testing)</td><td>Kiểm tra hệ thống có đáp ứng đúng yêu cầu — nay là 1 phần liên tục của <b>Đảm bảo chất lượng (QA)</b>, không chỉ là bước cuối</td></tr>
+      <tr><td><b>5. Bảo trì</b> (Maintenance)</td><td>Quá trình liên tục sau khi bàn giao: giám sát, sửa lỗi, cập nhật, hỗ trợ người dùng</td></tr>
+    </table>
+
+    <div class="grid2" style="margin-top:10px;">
+      <div class="info-card">
+        <h4>Vai trò: System Analyst vs Developer</h4>
+        <ul>
+          <li><b>Chuyên viên phân tích hệ thống (System Analyst)</b> — đồng hành xuyên suốt cả quy trình, kết nối giữa yêu cầu người dùng và thiết kế kỹ thuật</li>
+          <li><b>Lập trình viên (Developer)</b> — chuyên môn kỹ thuật trực tiếp, viết mã theo đúng thông số thiết kế</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Công cụ hỗ trợ phát triển</h4>
+        <ul>
+          <li><b>CASE</b> (Computer-Aided Software Engineering) — tự động hóa việc thu thập, phân tích, quản lý toàn bộ vòng đời SDLC</li>
+          <li><b>IDE</b> (Integrated Development Environment) — đóng gói bộ biên tập + biên dịch + gỡ lỗi (debugger) vào 1 phần mềm</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:14px;">Kiểm thử: Hộp trắng vs Hộp đen</h4>
+    <table class="spec">
+      <tr><th>Loại kiểm thử</th><th>Đặc điểm</th></tr>
+      <tr><td>White-Box (Hộp trắng)</td><td>Người kiểm thử hiểu rõ cấu trúc mã nguồn bên trong. Kỹ thuật: <b>Basis Path Testing</b> (đảm bảo mọi câu lệnh chạy ít nhất 1 lần), nguyên lý <b>Pareto 80/20</b> (80% lỗi nằm ở 20% thành phần)</td></tr>
+      <tr><td>Black-Box (Hộp đen)</td><td>Không cần hiểu cấu trúc bên trong, chỉ tập trung vào chức năng &amp; trải nghiệm người dùng. Gồm: <b>Alpha Testing</b> (nội bộ), <b>Beta/Pilot Testing</b> (người dùng thực tế), <b>UAT</b> — User Acceptance Testing (đánh giá trong môi trường thực tế)</td></tr>
+    </table>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:14px;">4 loại bảo trì phần mềm</h4>
+    <div class="pill-row">
+      <span class="pill">🔧 Sửa chữa (Corrective) — loại bỏ lỗi phát sinh (bugs)</span>
+      <span class="pill">🔄 Thích ứng (Adaptive) — điều chỉnh khi môi trường/chính sách thay đổi</span>
+      <span class="pill">⬆️ Nâng cấp (Perfective) — cải tiến hiệu suất, tích hợp công nghệ mới</span>
+      <span class="pill">🛡️ Phòng ngừa (Preventive) — refactor mã, cập nhật tài liệu, kéo dài tuổi thọ hệ thống</span>
+    </div>
+
+    <div class="example-box"><b>⭐ Chuẩn chất lượng quốc tế:</b> ISO 9000 (quản lý chất lượng công nghiệp nói chung) và ISO/IEC 15504 - SPICE (đánh giá &amp; cải tiến quy trình phát triển phần mềm) — thường là yêu cầu bắt buộc với các nhà phát triển hệ thống bên thứ 3.</div>
+  </div>
+
+  <!-- 5. QUAN LY DU AN -->
+  <div class="topic k5" id="quan-ly-du-an">
+    <div class="topic-head">
+      <div class="topic-num">5</div>
+      <div><h3>Quản lý dự án phần mềm</h3><div class="sub">4 giai đoạn quản lý, rủi ro dự án, và các mô hình phát triển phổ biến</div></div>
+    </div>
+
+    <table class="spec">
+      <tr><th>Giai đoạn PM</th><th>Nội dung chính</th></tr>
+      <tr><td>1. Khởi tạo dự án</td><td>Xác định ý tưởng &amp; mục tiêu kinh doanh, thực hiện nghiên cứu khả thi → <b>Điều lệ dự án (Project Charter)</b></td></tr>
+      <tr><td>2. Lập kế hoạch</td><td>Xác định mục tiêu (khung SMART/CLEAR), phạm vi, nguồn lực; lập <b>WBS</b> (cơ cấu phân chia công việc), kế hoạch truyền thông &amp; kế hoạch rủi ro</td></tr>
+      <tr><td>3. Thực hiện dự án</td><td>Phân công công việc, theo dõi tiến độ &amp; hiệu suất (KPI) liên tục</td></tr>
+      <tr><td>4. Kết thúc dự án</td><td>Hoàn thành sản phẩm, tổng kết đánh giá kết quả, hoàn tất báo cáo tài chính, giải thể nhóm dự án</td></tr>
+    </table>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:14px;">5 nhóm rủi ro dự án cốt lõi</h4>
+    <div class="grid2">
+      <div class="info-card">
+        <ul>
+          <li><b>Rủi ro Phạm vi &amp; Yêu cầu</b> — Scope Creep (trượt phạm vi không kiểm soát), chất lượng yêu cầu kém</li>
+          <li><b>Rủi ro Ngân sách &amp; Nguồn lực</b> — tính sai chi phí, thiếu nhân sự/thiết bị</li>
+          <li><b>Rủi ro Kỹ thuật &amp; Phụ thuộc</b> — công việc bị tắc do phụ thuộc nhau, giả định sai lệch</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <ul>
+          <li><b>Rủi ro Tổ chức &amp; Con người</b> — kháng cự thay đổi, tranh chấp hợp đồng</li>
+          <li><b>Rủi ro Bất khả kháng</b> — thiên tai, sự cố ngoài tầm kiểm soát</li>
+        </ul>
+        <p style="margin-top:8px;"><b>Quy trình 5 bước quản lý rủi ro:</b> Xác định → Phân tích tác động → Xếp ưu tiên → Biện pháp giảm thiểu → Giám sát liên tục.</p>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:14px;">Các mô hình phát triển phần mềm</h4>
+    <table class="spec">
+      <tr><th>Mô hình</th><th>Đặc điểm</th></tr>
+      <tr><td>Waterfall (Thác nước)</td><td>Tuyến tính nghiêm ngặt: Yêu cầu → Thiết kế → Triển khai → Kiểm thử. Mỗi giai đoạn phải xong 100% mới sang bước sau</td></tr>
+      <tr><td>Incremental/Iterative</td><td>Xây dựng từng phần (module), bắt đầu từ bản tối giản rồi bổ sung/kiểm thử liên tục qua từng chu kỳ</td></tr>
+      <tr><td>Rapid Prototyping</td><td>Xây bản mẫu thử (prototype/wireframe) chi phí thấp để khách hàng hình dung sớm luồng hoạt động</td></tr>
+      <tr><td>Open-Source</td><td>Cộng đồng được xem, tải, dùng và tự do chỉnh sửa mã nguồn (VD: Linux)</td></tr>
+      <tr><td>Agile / Scrum</td><td>Chia nhỏ dự án, thích ứng liên tục với thay đổi. Vai trò <b>Product Owner</b> (ưu tiên Product Backlog), <b>Sprint</b> (chu kỳ ngắn cố định), <b>Daily Scrum</b> (họp ngắn hàng ngày)</td></tr>
+      <tr><td>Extreme Programming (XP)</td><td>Nhóm nhỏ (&lt;10 người) làm việc chung không gian; tích hợp chặt Test-Driven Development; phát hành phiên bản liên tục để lấy phản hồi</td></tr>
+    </table>
+
+    <div class="example-box"><b>⭐ Ghi nhớ:</b> Waterfall phù hợp khi yêu cầu đã rõ ràng ngay từ đầu (ít thay đổi); Agile/Scrum/XP phù hợp khi yêu cầu còn biến động — ưu tiên thích ứng nhanh hơn là lập kế hoạch cứng nhắc từ đầu.</div>
+  </div>
+
+  <!-- 6. DAO DUC & PHAP LY -->
+  <div class="topic k1" id="dao-duc-ict">
+    <div class="topic-head">
+      <div class="topic-num">6</div>
+      <div><h3>Đạo đức, Bản quyền &amp; Pháp lý trong ICT</h3><div class="sub">Ranh giới giữa đúng-sai khi làm việc với máy tính và dữ liệu</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>Đạo đức cơ bản khi dùng máy tính</h4>
+        <ul>
+          <li>Không dùng máy tính để gây hại cho người khác</li>
+          <li>Không truy cập trái phép vào dữ liệu của người khác</li>
+          <li>Không sao chép phần mềm/tài sản trí tuệ trái phép</li>
+          <li>Tôn trọng quyền riêng tư &amp; bảo mật dữ liệu</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Phân biệt Quy định (Luật) và Đạo đức</h4>
+        <ul>
+          <li><b>Quy định (Regulations/Laws)</b> — chế tài bắt buộc do cơ quan quản lý ban hành; không tuân thủ → xử phạt hành chính/hình sự</li>
+          <li><b>Đạo đức (Ethics)</b> — nguyên tắc, giá trị <b>tự nguyện</b> mỗi cá nhân/tổ chức tự tuân theo</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:14px;">4 cách tiếp cận đạo đức</h4>
+    <table class="spec">
+      <tr><th>Hướng tiếp cận</th><th>Trọng tâm</th></tr>
+      <tr><td>Đạo đức đức tính (Virtue Ethics)</td><td>Đặt trọng tâm vào nhân cách, phẩm chất nội tại (trung thực, trách nhiệm) — người có đức tính tốt tự đưa ra quyết định đúng</td></tr>
+      <tr><td>Đạo đức nghĩa vụ (Deontology)</td><td>Tập trung tuân thủ nguyên tắc, bổn phận bắt buộc (VD: nghĩa vụ bảo mật dữ liệu khách hàng)</td></tr>
+      <tr><td>Đạo đức kết quả (Consequentialism)</td><td>Đánh giá hành vi dựa trên <b>hậu quả thực tế</b> — tối ưu lợi ích, giảm tác hại cho số đông</td></tr>
+      <tr><td>Đạo đức hợp đồng (Contractarianism)</td><td>Dựa trên thỏa thuận, cam kết giữa các bên (điều khoản dịch vụ, hợp đồng bảo mật NDA)</td></tr>
+    </table>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:14px;">Bản quyền phần mềm — vì sao quan trọng?</h4>
+    <p style="font-size:.88rem;color:var(--ink-soft);">Một trong 10 điều răn đạo đức CNTT nêu rõ: <i>"Không sao chép hoặc sử dụng phần mềm có bản quyền mà chưa trả tiền (nếu không được phép)"</i>. Phần mềm luôn đi kèm <b>giấy phép sử dụng (license)</b> quy định quyền hạn của người dùng:</p>
+    <table class="spec">
+      <tr><th>Loại giấy phép</th><th>Đặc điểm</th></tr>
+      <tr><td>Proprietary / Commercial</td><td>Phải trả phí mua/thuê, không được sao chép hay chỉnh sửa mã nguồn (VD: Windows, MS Office)</td></tr>
+      <tr><td>Freeware</td><td>Miễn phí sử dụng nhưng vẫn giữ bản quyền, không được sửa mã nguồn hoặc bán lại</td></tr>
+      <tr><td>Shareware</td><td>Dùng thử miễn phí có giới hạn (thời gian/tính năng), phải trả phí để dùng đầy đủ</td></tr>
+      <tr><td>Open-Source</td><td>Công khai mã nguồn, cho phép xem/sửa/phân phối lại (thường có điều kiện đi kèm, VD: GPL)</td></tr>
+      <tr><td>Public Domain</td><td>Không còn thuộc quyền sở hữu của ai, tự do sử dụng hoàn toàn</td></tr>
+    </table>
+    <div class="example-box"><b>⚠️ Rủi ro khi dùng phần mềm không bản quyền (crack/lậu):</b> vi phạm pháp luật (có thể bị xử phạt), nguy cơ nhiễm mã độc cao (thường đi kèm malware), không được nhà sản xuất hỗ trợ/cập nhật bảo mật, dễ mất dữ liệu khi phần mềm lỗi mà không có bản vá.</div>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:14px;">10 điều răn về đạo đức CNTT (Ten Commandments)</h4>
+    <ol style="font-size:.85rem;color:var(--ink-soft);line-height:1.7;padding-left:22px;">
+      <li>Không dùng máy tính để gây hại cho người khác</li>
+      <li>Không can thiệp vào công việc máy tính của người khác</li>
+      <li>Không xem trộm tập tin của người khác</li>
+      <li>Không dùng máy tính để trộm cắp</li>
+      <li>Không dùng máy tính để làm chứng dối trá</li>
+      <li>Không sao chép/dùng phần mềm có bản quyền chưa trả tiền (nếu không được phép)</li>
+      <li>Không dùng tài nguyên máy tính của người khác mà chưa được cho phép/bồi thường</li>
+      <li>Không chiếm đoạt thành quả trí tuệ của người khác</li>
+      <li>Phải suy nghĩ về hậu quả xã hội của chương trình/hệ thống mình tạo ra</li>
+      <li>Luôn sử dụng máy tính theo cách tôn trọng và quan tâm đến người khác</li>
+    </ol>
+
+    <div class="grid2" style="margin-top:10px;">
+      <div class="info-card">
+        <h4>3 định luật Robot của Asimov</h4>
+        <ol style="padding-left:18px;margin:0;">
+          <li>Robot không được gây thương tích cho con người, hoặc để con người bị hại do sự thiếu hành động của mình</li>
+          <li>Robot phải tuân theo mệnh lệnh con người, trừ khi mâu thuẫn với Định luật 1</li>
+          <li>Robot phải bảo vệ sự tồn tại của mình, miễn không trái Định luật 1 &amp; 2</li>
+        </ol>
+      </div>
+      <div class="info-card">
+        <h4>Tổ chức nghề nghiệp &amp; quy tắc ứng xử</h4>
+        <p>Các tổ chức như <b>ACM, IEEE, ABET</b> ban hành chuẩn đạo đức nghề nghiệp, kiểm định chất lượng đào tạo; <b>AWC</b> thúc đẩy bình đẳng giới trong CNTT; <b>AAAI</b> thúc đẩy nghiên cứu AI có trách nhiệm.</p>
+        <p style="margin-top:6px;"><b>Xung đột lợi ích (Conflict of Interest):</b> khi 1 cá nhân gánh 2 vai trò mâu thuẫn (VD: vừa trung thành với công ty, vừa có lợi ích từ doanh nghiệp gia đình) — cần quy định minh bạch bằng văn bản.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. AN NINH & QUYEN RIENG TU -->
+  <div class="topic k2" id="an-ninh-rieng-tu">
+    <div class="topic-head">
+      <div class="topic-num">7</div>
+      <div><h3>An ninh, Quyền riêng tư &amp; Bộ ba CIA</h3><div class="sub">Bảo vệ dữ liệu và tôn trọng quyền kiểm soát thông tin cá nhân</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <h4>An ninh (Security) vs Quyền riêng tư (Privacy)</h4>
+        <ul>
+          <li><b>An ninh</b> — giải pháp <b>kỹ thuật</b> để bảo vệ dữ liệu khỏi truy cập trái phép, phá hoại, trục lợi</li>
+          <li><b>Quyền riêng tư</b> — quyền <b>kiểm soát</b> của người dùng đối với cách thông tin cá nhân được thu thập, sử dụng, chia sẻ một cách hợp pháp, minh bạch</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Bộ ba CIA</h4>
+        <ul>
+          <li><b>Confidentiality (Bảo mật)</b> — giới hạn quyền truy cập, chỉ người được ủy quyền mới tiếp cận được</li>
+          <li><b>Integrity (Toàn vẹn)</b> — dữ liệu không bị sai lệch/can thiệp trái phép, dù đang ở trạng thái tĩnh (at rest), truyền tải (in transit) hay đang dùng (in use)</li>
+          <li><b>Availability (Sẵn sàng)</b> — người dùng được cấp quyền luôn truy cập được dữ liệu/dịch vụ khi cần</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="example-box blue"><b>⚖️ Đánh đổi trong CIA:</b> 3 yếu tố có mối quan hệ hữu cơ nhưng với nguồn lực hạn chế, tổ chức phải <b>đánh đổi (trade-off)</b> giữa chúng — VD: tăng bảo mật (nhiều lớp xác thực) có thể làm giảm sự thuận tiện/sẵn sàng truy cập nhanh.</div>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:14px;">Chính sách sử dụng hợp lý (AUP) — 3 trụ cột</h4>
+    <div class="pill-row">
+      <span class="pill">⚖️ Pháp lý — quy định bảo mật dữ liệu, thẩm quyền, quyền sở hữu IP</span>
+      <span class="pill">🔒 Bảo mật dữ liệu — trách nhiệm người dùng, hành vi bị cấm trên mạng nội bộ</span>
+      <span class="pill">🛡️ Trách nhiệm &amp; miễn trừ — bảo vệ tổ chức trước sự cố rò rỉ/trộm cắp dữ liệu</span>
+    </div>
+
+    <div class="grid2" style="margin-top:10px;">
+      <div class="info-card">
+        <h4>Chính sách mật khẩu mạnh</h4>
+        <ul>
+          <li>Độ dài tối thiểu <b>8 ký tự</b>, kết hợp chữ, số và ký tự đặc biệt</li>
+          <li>Đổi mật khẩu định kỳ (tối thiểu <b>3 tháng/lần</b>) tùy mức độ quan trọng hệ thống</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Kỹ thuật xã hội &amp; Phishing</h4>
+        <p><b>Social Engineering</b> — tấn công nhắm vào điểm yếu tâm lý/sự tin tưởng của con người, không phải lỗ hổng kỹ thuật. <b>Phishing</b> — email giả mạo tổ chức uy tín để dụ nạn nhân cung cấp mật khẩu/thông tin cá nhân.</p>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Baloo 2',sans-serif;margin-top:14px;">Biện pháp kiểm soát toàn vẹn dữ liệu</h4>
+    <table class="spec">
+      <tr><th>Biện pháp</th><th>Chức năng</th></tr>
+      <tr><td>Kiểm soát truy cập tệp (File Access Control)</td><td>Giới hạn quyền đọc/ghi/xóa đối với từng tệp cụ thể</td></tr>
+      <tr><td>Kiểm soát truy cập người dùng</td><td>Xác thực danh tính (Authentication) + phân quyền (Authorization)</td></tr>
+      <tr><td>Quản lý phiên bản (Version Control)</td><td>Lưu lịch sử thay đổi, khôi phục khi có sự cố</td></tr>
+      <tr><td>Hệ thống sao lưu dự phòng (Backup)</td><td>Phục hồi dữ liệu khi gặp thảm họa/hỏng hóc phần cứng</td></tr>
+    </table>
+
+    <div class="example-box"><b>⭐ Thách thức từ Big Data &amp; IoT:</b> lượng dữ liệu khổng lồ + đa dạng định dạng làm tăng bề mặt tấn công; thiết bị IoT (camera, cảm biến, bóng đèn thông minh...) thường dùng mật khẩu yếu hoặc thiếu cập nhật bảo mật, trở thành "cửa ngõ" cho kẻ tấn công xâm nhập vào cả mạng nội bộ.</div>
+  </div>
+
+</section>
+
+</div><!-- /part-page 4 -->
 
 <footer>
   <div class="foot-card">
@@ -1453,7 +1991,11 @@ print("count:", count);            <span class="c-num">// 3. in giá trị đế
       </div>
       <div onclick="setPart('3')">
         <h4>👉 Phần 3 · Lập trình xử lý ảnh</h4>
-        <p>Ảnh số &amp; nguyên tử hóa → Vòng lặp xử lý ảnh → Biến &amp; biểu thức → Câu lệnh If → Ảnh xám &amp; tách kênh → Ghép ảnh &amp; Green Screen → Dữ liệu bảng → Tìm kiếm &amp; đếm dữ liệu.</p>
+        <p>Ảnh số &amp; nguyên tử hóa → Vòng lặp xử lý ảnh → Biến &amp; biểu thức → Câu lệnh If → Ảnh xám &amp; tách kênh → Ghép ảnh &amp; Green Screen → Dữ liệu bảng → Tìm kiếm &amp; đếm dữ liệu → Lỗi cú pháp thường gặp.</p>
+      </div>
+      <div onclick="setPart('4')">
+        <h4>👉 Phần 4 · CSDL, Dự án &amp; Đạo đức</h4>
+        <p>Dữ liệu &amp; DBMS → Mô hình CSDL → Phép toán CSDL (SQL) → Vòng đời phần mềm → Quản lý dự án → Đạo đức &amp; pháp lý ICT → An ninh &amp; quyền riêng tư.</p>
       </div>
     </div>
   </div>
@@ -1466,9 +2008,9 @@ print("count:", count);            <span class="c-num">// 3. in giá trị đế
   window.addEventListener('scroll', () => { backTop.classList.toggle('show', window.scrollY > 500); });
 
   // ---- Toggle giữa các Phần ----
-  // Để thêm Phần 4 sau này: (1) thêm 1 <div class="part-page" data-part="4">...</div>,
-  // (2) thêm 1 <div class="nav-links" data-part="4">...</div> trong <nav>,
-  // (3) thêm 1 <button data-part="4">Phần 4 · ...</button> vào #partSwitch.
+  // Để thêm Phần 5 sau này: (1) thêm 1 <div class="part-page" data-part="5">...</div>,
+  // (2) thêm 1 <div class="nav-links" data-part="5">...</div> trong <nav>,
+  // (3) thêm 1 <button data-part="5">Phần 5 · ...</button> vào #partSwitch.
   function setPart(n){
     document.querySelectorAll('.part-page').forEach(p => {
       p.classList.toggle('active-page', p.dataset.part === String(n));
@@ -1485,7 +2027,7 @@ print("count:", count);            <span class="c-num">// 3. in giá trị đế
   document.querySelectorAll('#partSwitch button[data-part]').forEach(b => {
     b.addEventListener('click', () => setPart(b.dataset.part));
   });
-  const startPart = (location.hash === '#phan3') ? '3' : (location.hash === '#phan2') ? '2' : '1';
+  const startPart = (location.hash === '#phan4') ? '4' : (location.hash === '#phan3') ? '3' : (location.hash === '#phan2') ? '2' : '1';
   setPart(startPart);
 
   const links = document.querySelectorAll('.nav-links a');
